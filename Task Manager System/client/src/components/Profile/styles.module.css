@@ -1,0 +1,370 @@
+/* General layout styles */
+.login_container {
+	width: 100%;
+	max-width: 1000%;
+	margin: 0 auto;
+	padding: 20px;
+	background-color: #f4f4f9;
+	border-radius: 8px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	gap: 10px;
+  }
+  
+  h1 {
+	text-align: center;
+	font-size: 2rem;
+	margin-bottom: 20px;
+  }
+  
+  h2 {
+	font-size: 1.5rem;
+	margin-bottom: 10px;
+  }
+  
+  /* Form styling */
+  input[type="text"] {
+	width: 70%;
+	padding: 10px;
+	margin: 10px 0;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+	font-size: 1rem;
+  }
+  
+  button {
+	padding: 10px 20px;
+	border: none;
+	background-color: #4CAF50;
+	color: white;
+	font-size: 1rem;
+	cursor: pointer;
+	border-radius: 5px;
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+  }
+  
+  button:hover {
+	background-color: #45a049;
+  }
+  
+  /* Profile list styles */
+  ul {
+	list-style-type: none;
+	padding: 0;
+  }
+  
+  li {
+	background-color: #fff;
+	padding: 15px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  li h3 {
+	font-size: 1.2rem;
+	margin: 0;
+	color: #333;
+  }
+  
+  li p {
+	color: #666;
+	font-size: 1rem;
+	margin: 5px 0;
+  }
+  
+  li button {
+	margin-right: 10px;
+	background-color: #007BFF;
+  }
+  
+  li button:nth-child(2) {
+	background-color: #e74c3c;
+  }
+  
+  li button:hover {
+	opacity: 0.9;
+  }
+  
+  /* Add a bit of spacing between buttons */
+  button + button {
+	margin-left: 10px;
+  }
+  
+  /* Modal background */
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000; /* Ensure the modal is on top of other elements */
+  }
+  
+  /* Modal content box */
+  .modal_content {
+	background-color: white; /* White background for the modal */
+	padding: 20px;
+	border-radius: 8px; /* Rounded corners */
+	text-align: center; /* Center content inside modal */
+	width: 300px; /* Modal width */
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Optional: subtle shadow around the modal */
+  }
+  
+  /* Heading inside modal */
+  .modal_content h2 {
+	font-size: 18px;
+	color: #333; /* Dark text for the heading */
+	margin-bottom: 20px; /* Space between heading and buttons */
+  }
+  
+  /* Buttons inside modal */
+  .modal_content .button {
+	padding: 10px 20px;
+	margin: 5px; /* Space between buttons */
+	border: none;
+	background-color: #007bff; /* Primary button color */
+	color: white;
+	font-size: 16px;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+  }
+  
+  .modal_content .button:hover {
+	background-color: #0056b3; /* Darker color on hover */
+  }
+  
+  .modal_content .button:focus {
+	outline: none;
+  }
+  
+  /* Cancel button styling */
+  .modal_content .button:last-child {
+	background-color: #ccc; /* Gray color for the cancel button */
+  }
+  
+  .modal_content .button:last-child:hover {
+	background-color: #999; /* Darker gray on hover */
+  }
+  
+  .back_button {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background-color: transparent;
+	border: none;
+	font-size: 20px;
+	color: #333;
+	cursor: pointer;
+  }
+  
+  .back_button:hover {
+	color: #ff0000;
+  }
+  
+  .delete_button {
+  /* position: absolute;
+  right: 20px;        
+  top: 50%;           
+  transform: translateY(-50%);  */
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.delete_button:hover {
+  background-color:  #3bb19b;
+}
+
+.profile_item {
+  position: relative; /* Required to make the button's absolute positioning work */
+}
+
+.container {
+	padding: 20px;
+	max-width: 800px;
+	margin: auto;
+  }
+  
+  .back_button {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background-color: transparent;
+	border: none;
+	font-size: 20px;
+	color: #333;
+	cursor: pointer;
+}
+
+.back_button:hover {
+	color: #ff0000;
+}
+  
+  
+  .profile_list {
+	list-style: none;
+	padding: 0;
+  }
+  
+  .profile_item {
+	border: 1px solid #ddd;
+	margin: 10px 0;
+	padding: 10px;
+	border-radius: 5px;
+  }
+  
+  .edit_button {
+	background-color: #007bff;
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 5px;
+	cursor: pointer;
+  }
+  
+  .modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.6);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+  
+  .modal_content {
+	background: white;
+	padding: 20px;
+	border-radius: 10px;
+	width: 400px;
+  }
+  
+  .save_button {
+	background-color: green;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+  }
+  
+  .cancel_button {
+	background-color: gray;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+  }
+  
+  /* General modal styling */
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000; /* Ensure modal is above all other elements */
+  }
+  
+  .modal_content {
+	background: white;
+	padding: 20px;
+	border-radius: 10px;
+	width: 400px; /* Fixed width for consistent size */
+	max-height: 80%; /* Prevent modal from overflowing */
+	overflow-y: auto; /* Scroll if content exceeds height */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+	text-align: center; /* Center-align text */
+  }
+  
+  /* Header in the modal */
+  .modal_content h2 {
+	font-size: 1.5em;
+	margin-bottom: 20px;
+  }
+  
+  /* Checkbox list styling */
+  .modal_content ul {
+	list-style-type: none; /* Remove bullet points */
+	padding: 0;
+	margin: 0;
+  }
+  
+  .modal_content li {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px;
+	border: 1px solid #ddd; /* Light border for frame */
+	border-radius: 5px;
+	margin-bottom: 10px;
+	background: #f9f9f9; /* Light gray background for better visibility */
+  }
+  
+  .modal_content li:hover {
+	background: #f0f8ff; /* Highlight when hovered */
+  }
+  
+  .modal_content label {
+	flex-grow: 1;
+	text-align: left;
+	cursor: pointer; /* Pointer cursor for usability */
+	font-size: 1rem; /* Adjust label font size */
+  }
+  
+  /* Buttons in the modal */
+  .save_button,
+  .cancel_button {
+	background-color: #007bff;
+	color: white;
+	border: none;
+	padding: 10px 15px;
+	border-radius: 5px;
+	cursor: pointer;
+	margin: 5px;
+  }
+  
+  .save_button {
+	background-color: green; /* Save button in green */
+  }
+  
+  .cancel_button {
+	background-color: red; /* Cancel button in red */
+  }
+  
+  .save_button:hover,
+  .cancel_button:hover {
+	opacity: 0.8; /* Slight fade effect on hover */
+  }
+  
+  .permission_list {
+	list-style-type: none;
+	padding: 0;
+  }
+  
+  .permission_list li {
+	background-color: #f0f0f0;
+	margin: 5px 0;
+	padding: 10px;
+	border-radius: 4px;
+	font-weight: bold;
+  }
+  
