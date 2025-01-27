@@ -49,16 +49,17 @@ const Project = () => {
       </button>
 
       <div>
-        <h3> Name: 
+        <h3> Name:
         <input
           type="text"
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           className={styles.input}
+          required
         />
         </h3>
-        <h3> Description: 
+        <h3> Description:  
         <input
           type="text"
           placeholder="Description"
@@ -67,16 +68,17 @@ const Project = () => {
           className={styles.input}
         />
         </h3>
-        <h3> Start Date:   
+        <h3> Start Date:    
         <input
           type="date"
           placeholder="Start Date"
           value={start_date}
           onChange={(e) => setstartDate(e.target.value)}
           className={styles.input}
+          required
         />
         </h3>
-        <h3> End Date: 
+        <h3> End Date:
         <input
           type="date"
           placeholder="End Date"
@@ -85,7 +87,7 @@ const Project = () => {
           className={styles.input}
         />
         </h3>
-        <h3> Due Date: 
+        <h3> Due Date:
         <input
           type="date"
           placeholder="Due Date"
@@ -96,11 +98,12 @@ const Project = () => {
         </h3>
 
         {/* Dropdown for Status */}
-        <h3> Status: 
+        <h3> Status:
         <select
           value={status}
           onChange={(e) => setStatus(e.target.value)}
           className={styles.input}
+          required
         >
           <option value="Pending">Pending</option>
           <option value="In Progress">In Progress</option>
@@ -120,6 +123,7 @@ const Project = () => {
               checked={priority === "Low"}
               onChange={(e) => setPriority(e.target.value)}
               className={styles.radio}
+              required
             />
             Low
           </label>
@@ -131,6 +135,7 @@ const Project = () => {
               checked={priority === "Medium"}
               onChange={(e) => setPriority(e.target.value)}
               className={styles.radio}
+              required
             />
             Medium
           </label>
@@ -142,6 +147,7 @@ const Project = () => {
               checked={priority === "High"}
               onChange={(e) => setPriority(e.target.value)}
               className={styles.radio}
+              required
             />
             High
           </label>

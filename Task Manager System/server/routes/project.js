@@ -29,7 +29,7 @@ router.put("/", async (req, res) => {
 		const project = await Project.findById(req.body.id);
         if (!project) return res.status(404).send({ message: "Project not found" });
 
-		const existProject = await Project.findOne({ name: req.body.name, id: { $ne: req.body.id } });
+		const existProject = await Project.findOne({ name: req.body.name, _id: { $ne: req.body.id } });
 		if (existProject) return res.status(422).send({ message: "Project is already exist" });
 
         const projectdata = await Project.findByIdAndUpdate(req.body.id, {$set: req.body}, { new: true });
@@ -42,6 +42,17 @@ router.put("/", async (req, res) => {
 router.get("/", async (req, res) => {
 	try {
 		const project = await Project.find();
+
+		return res.status(200).send({ data: project, message: "Project loaded successfully" });
+	} catch (error) {
+		res.status(500).send({ message: "Something went wrong try again later." });
+	}
+})
+
+router.get("/:id", async (req, res) => {
+	try {
+		const project = await Project.findById(req.params.id);
+		if (!project) return res.status(404).send({ message: "Project not found" });
 
 		return res.status(200).send({ data: project, message: "Project loaded successfully" });
 	} catch (error) {

@@ -33,9 +33,11 @@ const Profile = () => {
     try {
       const newProfile = { name, description, permissions };
       const { data } = await axios.post("http://localhost:3001/api/profile", newProfile);
+      console.log(data, "==data");
+      localStorage.setItem("profileData", JSON.stringify(data.data));
       setProfiles([...profiles, data.data]);
       setName("");
-      setDescription("");
+      setDescription(null);
       setPermissions({});
     } catch (error) {
       console.error("Error creating profile. Please try again.");

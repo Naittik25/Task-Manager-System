@@ -66,7 +66,7 @@
 	position: relative; /* Ensures the child elements can be positioned relative to this container */
 	margin-bottom:15px;
 	padding-right: 50px; /* Ensure space for the priority and status */
-	width: 25%;
+	width: 23%;
 	background-color: #d4f3ed;
   }
   
@@ -83,7 +83,7 @@
   .project_status {
 	position: absolute; /* Position it absolutely inside the project_item */
 	right: 10px; /* Aligns the status to the right side */
-	top: 10px; /* Positions it towards the top */
+	top: 70px; /* Positions it towards the top */
 	font-size: 0.9rem;
 	color: #4caf50; /* You can customize the color of the status (green for example) */
 	font-weight: bold;
@@ -98,3 +98,21 @@
 	font-weight: bold;
   }
   
+  .edit_project_btn {
+	position: absolute;   /* Absolute positioning relative to the .project_item */
+	top: 10px;            /* 10px from the top of the container */
+	right: 10px;          /* 10px from the right of the container */
+	border: none;
+	outline: none;
+	padding: 8px 12px;
+	background-color: #4caf50;
+	color: white;
+	border-radius: 20px;
+	font-weight: bold;
+	font-size: 14px;
+	cursor: pointer;
+  }
+  
+  .edit_project_btn:hover {
+	background-color: #45a049; /* Darker shade on hover */
+  }

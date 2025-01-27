@@ -19,8 +19,8 @@ const validate = (data) => {
         name: Joi.string().trim().required().label("Name"),
         description: Joi.string().trim().max(500).allow(null).optional().label("Description"),
         start_date: Joi.date().raw().label("Start date"),
-        end_date: Joi.date().raw().label("End date"),
-        due_date: Joi.date().raw().label("Due date"),
+        end_date: Joi.date().raw().allow(null).label("End date"),
+        due_date: Joi.date().raw().allow(null).label("Due date"),
         status: Joi.string().trim().valid('Pending', 'In Progress', 'Hold', 'Completed').label('Status'),
         priority: Joi.string().trim().valid('High', 'Low', 'Medium').default('Low').label('Priority')
     });

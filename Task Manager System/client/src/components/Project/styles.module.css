@@ -1,59 +1,39 @@
-/* General container styling */
+General layout styles
 .login_container {
 	width: 100%;
-	max-width: 700px; /* Adjust the width for better readability */
+	max-width: 1000%;
 	margin: 0 auto;
 	padding: 20px;
 	background-color: #f4f4f9;
 	border-radius: 8px;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Form header */
-  h1 {
+	gap: 10px;
+}
+
+h1 {
 	text-align: center;
 	font-size: 2rem;
-	margin-bottom: 30px;
-  }
-  
-  /* Form group styling for proper spacing */
-  .form-group {
-	display: flex;
-	flex-direction: column; /* Stack label and input vertically */
-	margin-bottom: 20px; /* Add space between form groups */
-	align-items: flex-start; /* Align inputs and labels to the left */
-  }
-  
-  /* Label styling */
-  h3 {
-	font-size: 1rem;
-	font-weight: bold;
-	margin-bottom: 5px; /* Add spacing between label and input */
-  }
-  
-  /* Input fields styling */
-  input[type="text"],
-  select {
-	width: 50%; /* Adjust width to create proper alignment */
-	padding: 10px;
-	border-radius: 5px;
-	border: 1px solid #ddd;
-	font-size: 1rem;
-	margin: 5px 0; /* Add consistent margin for inputs */
-  }
-  
-  input[type="date"],
-  select {
-	width: 17%; /* Adjust width to create proper alignment */
-	padding: 10px;
-	border-radius: 5px;
-	border: 1px solid #ddd;
-	font-size: 1rem;
-	margin: 5px 0; /* Add consistent margin for inputs */
-  }
+	margin-bottom: 20px;
+}
 
-  /* Button styling */
-  button {
+h2 {
+	font-size: 1.5rem;
+	margin-bottom: 10px;
+}
+
+/* Form styling */
+input[type="text"],
+input[type="date"],
+select {
+	width: 70%;
+	padding: 10px;
+	margin: 10px 0;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+	font-size: 1rem;
+}
+
+button {
 	padding: 10px 20px;
 	border: none;
 	background-color: #4CAF50;
@@ -61,18 +41,18 @@
 	font-size: 1rem;
 	cursor: pointer;
 	border-radius: 5px;
-	margin: 20px 10px 10px 0; /* Adjust spacing */
-  }
-  
-  button:hover {
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+
+button:hover {
 	background-color: #45a049;
-  }
-  
+}
 
 /* Priority radio button styles */
 .priorityContainer {
 	display: flex;
-	flex-wrap: wrap;
 	gap: 20px;
 	margin-bottom: 20px;
 	align-items: center;
@@ -102,8 +82,7 @@ input[type="radio"]:checked {
 
 /* Dropdown style */
 select {
-	width: 20%;
-	max-width: 600px;
+	width: 70%;
 	padding: 10px;
 	margin: 10px 0;
 	border-radius: 5px;
@@ -152,7 +131,6 @@ button:focus {
 	border-radius: 8px; /* Rounded corners */
 	text-align: center; /* Center content inside modal */
 	width: 300px; /* Modal width */
-	max-width: 400px;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Optional: subtle shadow around the modal */
 }
 
