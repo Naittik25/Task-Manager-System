@@ -4,17 +4,17 @@ const Joi = require("joi");
 const projectUserSchema = new mongoose.Schema({
     project_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'profile',
+		ref: 'projects',
 		required: false
 	},
     user_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'projects',
+		ref: 'users',
 		required: false
 	},
     profile_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'user',
+		ref: 'profile',
 		required: false
 	},
 });

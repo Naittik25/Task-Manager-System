@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const { Project, validate } = require("../models/project");
+const { ProjectUser } = require("../models/projectUser");
+const { User } = require("../models/user");
 
 router.post("/", async (req, res) => {
 	try {
@@ -54,9 +56,20 @@ router.get("/:id", async (req, res) => {
 		const project = await Project.findById(req.params.id);
 		if (!project) return res.status(404).send({ message: "Project not found" });
 
+		const user = await ProjectUser.find({ project_id: req.params.id }); 
+
+		if (user.length) {
+			await Promise.all(user.map(async e => {
+				const userdetail = await User.findById(e.user_id);
+				e._doc.name = userdetail?.fullName;
+				return { name: userdetail?.fullName, ...e };
+			}))
+			project._doc.users = user || [];
+		}
+
 		return res.status(200).send({ data: project, message: "Project loaded successfully" });
 	} catch (error) {
-		res.status(500).send({ message: "Something went wrong try again later." });
+		res.status(500).send({ message: "Something went wrong try again later.", data: error });
 	}
 })
 

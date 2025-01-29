@@ -49,4 +49,14 @@ router.put("/", async (req, res) => {
 	}
 });
 
+router.get("/", async (req, res) => {
+	try {
+		const user = await User.find();
+
+		return res.status(200).send({ data: user, message: "User loaded successfully" });
+	} catch (error) {
+		res.status(500).send({ message: "Something went wrong try again later." });
+	}
+})
+
 module.exports = router;

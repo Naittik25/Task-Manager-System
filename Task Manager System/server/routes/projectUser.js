@@ -7,7 +7,11 @@ router.post("/", async (req, res) => {
 		if (error)
 			return res.status(400).send({ message: error.details[0].message });
 
-		const user = await ProjectUser.findOne({ name: req.body.name });
+		const user = await ProjectUser.findOne({
+			project_id: req.body.project_id,
+			user_id: req.body.user_id,
+			profile_id: req.body.profile_id
+		});
 		if (user)
 			return res
 				.status(409)
