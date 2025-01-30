@@ -53,9 +53,15 @@ const EditProject = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      console.log("1");
       const updatedProject = { ...project };
+      console.log(updatedProject);
+      console.log(updatedProject.__v);
+      delete updatedProject.__v;
       delete updatedProject._id; // Avoid sending _id
+      console.log("2");
       const response = await axios.put("http://localhost:3001/api/project", updatedProject);
+      
       if (response.status === 200) {
         navigate(`/`); // Navigate after update
       }
@@ -95,9 +101,14 @@ const EditProject = () => {
   };
 
   // Filter out users who are already in the project
+  // const availableUsers = users.filter((user) => {
+  //   return !project.users.some((projectUser) => projectUser.user_id === user._id) || null;
+  // });
+
   const availableUsers = users.filter((user) => {
-    return !project.users.some((projectUser) => projectUser.user_id === user._id);
+    return !project?.users?.some((projectUser) => projectUser.user_id === user._id);
   });
+  
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -147,7 +158,7 @@ const EditProject = () => {
           >
             <option value="Pending">Pending</option>
             <option value="In Progress">In Progress</option>
-            <option value="Complete">Complete</option>
+            <option value="Completed">Completed</option>
             <option value="Hold">Hold</option>
           </select>
         </div>
@@ -176,7 +187,7 @@ const EditProject = () => {
             Add User
           </button>
           <ul>
-            {project.users.map((user) => (
+            {project?.users?.map((user) => (
               <li key={user.user_id}>{user.name}</li>
             ))}
           </ul>

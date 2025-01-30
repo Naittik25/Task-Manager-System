@@ -26,15 +26,15 @@ router.put("/", async (req, res) => {
 	try {
 		const { error } = validate(req.body);
 		if (error)
-			return res.status(400).send({ message: error.details[0].message });
+		return res.status(400).send({ message: error.details[0].message });
+		
+		const project = await Project.findById(req.body.users[0].project_id);
+        if (!project) return res.status(404).send({ message: "Project noot found" });
 
-		const project = await Project.findById(req.body.id);
-        if (!project) return res.status(404).send({ message: "Project not found" });
-
-		const existProject = await Project.findOne({ name: req.body.name, _id: { $ne: req.body.id } });
+		const existProject = await Project.findOne({ name: req.body.name, _id: { $ne: req.body.users[0].project_id } });
 		if (existProject) return res.status(422).send({ message: "Project is already exist" });
-
-        const projectdata = await Project.findByIdAndUpdate(req.body.id, {$set: req.body}, { new: true });
+;
+        const projectdata = await Project.findByIdAndUpdate(req.body.users[0].project_id, {$set: req.body}, { new: true });
 		return res.status(200).send({ data: projectdata, message: "Project updated successfully" });
 	} catch (error) {
 		res.status(500).send({ message: "Something went wrong try again later." });
@@ -54,7 +54,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
 	try {
 		const project = await Project.findById(req.params.id);
-		if (!project) return res.status(404).send({ message: "Project not found" });
+		if (!project) return res.status(404).send({ message: "Project nott found" });
 
 		const user = await ProjectUser.find({ project_id: req.params.id }); 
 
