@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Login from "./components/Login";
 import Signup from "./components/Singup";
 import Main from "./components/Main";
@@ -11,12 +11,13 @@ function App() {
 
 	return (
 		<Routes>
-			{<Route path="/login" exact element={<Login />} />}
+			{<Route path="/" element={<Navigate to="/login" />} />}
+			<Route path="/login" exact element={<Login />} />
 			<Route path="/signup" exact element={<Signup />} />
 			<Route path="/profile" exact element={<Profile />} />
 			<Route path="/project" exact element={<Project />} />
 			<Route path="/project/edit/:projectId" exact element={<ProjectEdit />}/>
-			<Route path="/" exact element={<Main />} />
+			<Route path="/dashboard" exact element={<Main />} />
 		</Routes>
 	);
 }

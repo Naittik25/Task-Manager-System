@@ -116,3 +116,12 @@
   .edit_project_btn:hover {
 	background-color: #45a049; /* Darker shade on hover */
   }
+
+  .project_dates {
+	font-size: 14px;
+	font-weight: bold;
+	color: #333;
+	margin: 5px 0;
+  }
+  
+  

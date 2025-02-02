@@ -98,7 +98,10 @@ const Main = () => {
               <li key={project.id} className={styles.project_item}>                    
                 <div className={styles.project_name}>{project.name}</div>                    
                 <br />                    
-                <div className={styles.start_date}>{(project.start_date).split("T")[0]}</div>                    
+                <div className={styles.project_dates}>
+                    {(project.start_date).split("T")[0]} =&gt; {(project.end_date).split("T")[0]}
+                </div>
+                        
                 <br />                    
                 <div className={styles.project_description}>({project.description?.toLowerCase()})</div>                   
                 <div className={styles.project_status}>{project.status}</div>                     
@@ -114,11 +117,13 @@ const Main = () => {
                   )}                    
                 </div>
                   {/* Edit Button */}
+                {isAdmin &&(
                 <button 
                   className={styles.edit_project_btn} 
                   onClick={() => handleEdit(project._id)}>
                   Edit
-                </button>                
+                </button>   
+                )}             
               </li>        
             ))}              
           </ul>            

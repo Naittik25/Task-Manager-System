@@ -31,13 +31,16 @@ const Project = () => {
       setDueDate(null);
       setEndDate(null);
       setstartDate(null);
+
+      navigate("/dashboard");
+
     } catch (error) {
       console.error("Error creating project. Please try again.");
     }
   };
 
   const handleBackToHome = () => {
-    navigate("/"); // Navigate to the home page
+    navigate("/dashboard"); // Navigate to the home page
   };
 
   return (

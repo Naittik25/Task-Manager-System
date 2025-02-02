@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import styles from "./styles.module.css";
 
 const EditProject = () => {
@@ -11,7 +11,7 @@ const EditProject = () => {
   const [project, setProject] = useState({
     name: "",
     description: "",
-    start_date: "",
+    end_date: "",
     status: "",
     priority: "",
     users: [], // Users already in the project
@@ -55,14 +55,15 @@ const EditProject = () => {
     try {
       const updatedProject = { ...project };
       updatedProject.id = project._id;
-      delete updatedProject._id; // Avoid sending _id
-      delete updatedProject.startDate;
+  
+      // Do NOT delete end_date
+      delete updatedProject._id;
       delete updatedProject.__v;
       delete updatedProject.users;
       const response = await axios.put("http://localhost:3001/api/project", updatedProject);
       
       if (response.status === 200) {
-        navigate(`/`); // Navigate after update
+        navigate('/dashboard'); // Refresh page after update
       }
     } catch (err) {
       setError("Failed to update project");
@@ -71,7 +72,7 @@ const EditProject = () => {
 
   // Handle cancel button click
   const handleCancel = () => {
-    navigate("/"); // Navigate back to the main page
+    navigate("/dashboard"); // Navigate back to the main page
   };
 
   // Handle adding selected user to the project
@@ -98,6 +99,24 @@ const EditProject = () => {
       setError("Failed to add user to project.");
     }
   };
+
+  const handleDeleteUser = async (userId) => {
+    try {
+      const response = await axios.delete(`http://localhost:3001/api/project/remove-user/${projectId}/${userId}`);
+  
+      if (response.status === 200) {
+        // Update UI by removing user from the state
+        // console.log("Deleting user with ID:", userId, "from project:", projectId);
+        setProject((prevProject) => ({
+          ...prevProject,
+          users: prevProject.users.filter((user) => user.user_id !== userId),
+        }));
+      }                           
+    } catch (err) { 
+      setError("Failed to remove user from project.");
+    }
+  };
+  
 
 
   const availableUsers = users.filter((user) => {
@@ -134,12 +153,12 @@ const EditProject = () => {
         </div>
 
         <div className={styles.formGroup}>
-          <label>Start Date</label>
+          <label>End Date</label>
           <input
             type="date"
-            name="start_date"
-            value={project.start_date.split("T")[0]}
-            onChange={(e) => setProject({ ...project, start_date: e.target.value })}
+            name="end_date"
+            value={project.end_date ? project.end_date.split("T")[0] : ""}
+            onChange={(e) => setProject({ ...project, end_date: e.target.value })}
             required
           />
         </div>
@@ -182,11 +201,19 @@ const EditProject = () => {
           >
             Add User
           </button>
-          <ul>
-            {project.users && 
-            project?.users?.map((user) => (
-              <li key={user.user_id}>{user.name}</li>
-            ))}
+          <ul className={styles.userList}>
+            {project.users &&
+              project.users.map((user) => (
+                <li key={user.user_id} className={styles.userItem}>
+                  <span className={styles.userName}>{user.name}</span>
+                  <button
+                    className={styles.deleteBtn}
+                    onClick={() => handleDeleteUser(user.user_id)}
+                  >
+                    Remove
+                  </button>
+                </li>
+              ))}
           </ul>
         </div>
 

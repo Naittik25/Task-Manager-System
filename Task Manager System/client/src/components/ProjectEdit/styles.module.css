@@ -71,3 +71,40 @@
 	margin-top: 10px;
   }
   
+  .userList {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+  }
+  
+  .userItem {
+	display: flex;
+	align-items: center;
+	justify-content: space-between; /* Pushes the Remove button to the end */
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: #fff;
+	margin-bottom: 8px;
+  }
+  
+  .userName {
+	flex-grow: 1; /* Allows the name to take available space */
+	font-size: 16px;
+  }
+  
+  .deleteBtn {
+	background-color: red;
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	cursor: pointer;
+	border-radius: 5px;
+	font-size: 14px;
+  }
+  
+  .deleteBtn:hover {
+	background-color: darkred;
+  }
+  

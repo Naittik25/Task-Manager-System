@@ -27,7 +27,7 @@ const Login = () => {
 			localStorage.setItem("token", res.data);
 
 			// Redirect to the homepage
-			navigate("/");
+			navigate("/dashboard");
 		} catch (error) {
 			// Handle any unexpected errors
 			setError("Login failed. Please try again.");

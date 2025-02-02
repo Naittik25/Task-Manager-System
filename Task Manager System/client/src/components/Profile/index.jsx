@@ -95,7 +95,7 @@ const Profile = () => {
   };
 
   const handleBackToHome = () => {
-    navigate("/"); // Navigate to the home page
+    navigate("/dashboard"); // Navigate to the home page
   };
 
   return (
