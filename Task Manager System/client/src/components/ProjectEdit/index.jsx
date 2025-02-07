@@ -22,7 +22,9 @@ const EditProject = () => {
   const [users, setUsers] = useState([]); // All users
   const [selectedUser, setSelectedUser] = useState(""); // Store selected user ID
   const [showUserModal, setShowUserModal] = useState(false); // To control modal visibility
-
+  const [selectedRole, setSelectedRole] = useState("");
+  const [roles, setRoles] = useState([]); // Store fetched roles
+  
   // Fetch project data and the users list
   useEffect(() => {
     const fetchProject = async () => {
@@ -45,8 +47,18 @@ const EditProject = () => {
       }
     };
 
+    const fetchRoles = async () => {
+      try {
+        const { data } = await axios.get("http://localhost:3001/api/profile"); // Fetch roles from API
+        setRoles(data.data);
+      } catch (err) {
+        setError("Failed to fetch roles");
+      }
+    };
+
     fetchProject();
     fetchUsers();
+    fetchRoles();
   }, [projectId]);
 
   // Handle form submission to update the project
@@ -78,8 +90,8 @@ const EditProject = () => {
   // Handle adding selected user to the project
   const handleAddUser = async (event) => {
     event.preventDefault();
-    if (!selectedUser) {
-      setError("Please select a user.");
+    if (!selectedUser || !selectedRole) {
+      setError("Please select a user and role.");
       return;
     }
 
@@ -87,10 +99,12 @@ const EditProject = () => {
       const response = await axios.post("http://localhost:3001/api/project_user", {
         project_id: projectId,
         user_id: selectedUser,
+        profile_id: selectedRole,
       });
       if (response.status === 201) {
         setShowUserModal(false); // Close the modal after adding the user
         setSelectedUser(""); // Reset the selected user
+        setSelectedRole("");
         // Re-fetch the project to update the list of users
         const updatedProjectResponse = await axios.get(`http://localhost:3001/api/project/${projectId}`);
         setProject(updatedProjectResponse.data.data);
@@ -102,22 +116,18 @@ const EditProject = () => {
 
   const handleDeleteUser = async (userId) => {
     try {
-      const response = await axios.delete(`http://localhost:3001/api/project/remove-user/${projectId}/${userId}`);
+      const response = await axios.delete(`http://localhost:3001/api/project_user/${userId}`);
   
-      if (response.status === 200) {
-        // Update UI by removing user from the state
-        // console.log("Deleting user with ID:", userId, "from project:", projectId);
-        setProject((prevProject) => ({
-          ...prevProject,
-          users: prevProject.users.filter((user) => user.user_id !== userId),
-        }));
+      if (response.status == 200) {
+        setProject({
+          ...project,
+          users: project.users.filter((user) => user._id !== userId),
+        });
       }                           
     } catch (err) { 
       setError("Failed to remove user from project.");
     }
   };
-  
-
 
   const availableUsers = users.filter((user) => {
     if (project?.users) return !project.users.some((projectUser) => projectUser.user_id === user._id); 
@@ -206,9 +216,11 @@ const EditProject = () => {
               project.users.map((user) => (
                 <li key={user.user_id} className={styles.userItem}>
                   <span className={styles.userName}>{user.name}</span>
+                  <span className={styles.userRole}>{user.profile_name}</span>
                   <button
                     className={styles.deleteBtn}
-                    onClick={() => handleDeleteUser(user.user_id)}
+                    type="button"
+                    onClick={() => handleDeleteUser(user._id)}
                   >
                     Remove
                   </button>
@@ -231,25 +243,21 @@ const EditProject = () => {
       {showUserModal && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
-            <h3>Select User</h3>
-            <select
-              name="user"
-              value={selectedUser}
-              onChange={(e) => setSelectedUser(e.target.value)}
-            >
+            <h3>Select User and Role</h3>
+            <select name="user" value={selectedUser} onChange={(e) => setSelectedUser(e.target.value)}>
               <option value="">Select a user</option>
               {availableUsers.map((user) => (
-                <option key={user._id} value={user._id}>
-                  {user.fullName}
-                </option>
+                <option key={user._id} value={user._id}>{user.fullName}</option>
               ))}
             </select>
-            <button type="button" onClick={handleAddUser}>
-              Add User
-            </button>
-            <button type="button" onClick={() => setShowUserModal(false)}>
-              Close
-            </button>
+            <select name="role" value={selectedRole} onChange={(e) => setSelectedRole(e.target.value)}>
+              <option value="">Select Role</option>
+              {roles.map((role) => (
+                <option key={role._id} value={role._id}>{role.name}</option>
+              ))}
+            </select>
+            <button type="button" onClick={handleAddUser}>Add User</button>
+            <button type="button" onClick={() => setShowUserModal(false)}>Close</button>
           </div>
         </div>
       )}

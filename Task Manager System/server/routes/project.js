@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { Project, validate } = require("../models/project");
 const { ProjectUser } = require("../models/projectUser");
+const { Profile } = require("../models/profile");
 const { User } = require("../models/user");
 
 router.post("/", async (req, res) => {
@@ -61,7 +62,9 @@ router.get("/:id", async (req, res) => {
 		if (user.length) {
 			await Promise.all(user.map(async e => {
 				const userdetail = await User.findById(e.user_id);
+				const profile = await Profile.findById(e.profile_id);
 				e._doc.name = userdetail?.fullName;
+				e._doc.profile_name = profile?.name;
 				return { name: userdetail?.fullName, ...e };
 			}))
 			project._doc.users = user || [];
@@ -95,29 +98,4 @@ router.delete("/:id", async (req, res) => {
 	}
   });
   
-  router.delete("/remove-user/:projectId/:userId", async (req, res) => {
-    try {
-        const { projectId, userId } = req.params;
-
-        // console.log("Received request to remove user:", userId, "from project:", projectId);
-
-        // Check if the user exists in the project
-        const existingUser = await ProjectUser.findOne({ project_id: projectId, user_id: userId });
-        if (!existingUser) {
-            console.log("User not found in project.");
-            return res.status(404).send({ message: "User not found in the project" });
-        }
-
-        // Delete the user from the project
-        const deletedUser = await ProjectUser.findOneAndDelete({ project_id: projectId, user_id: userId });
-
-        console.log("Deleted user:", deletedUser);
-
-        return res.status(200).send({ message: "User removed from project successfully" });
-    } catch (error) {
-        console.error("Error removing user:", error);
-        return res.status(500).send({ message: "Something went wrong, please try again later." });
-    }
-});
-
 module.exports = router;

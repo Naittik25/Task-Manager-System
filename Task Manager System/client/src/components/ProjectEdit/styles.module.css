@@ -108,3 +108,7 @@
 	background-color: darkred;
   }
   
+  .userRole {
+	font-weight: bold;
+	margin-right: 15px;
+  }
