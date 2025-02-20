@@ -86,9 +86,11 @@ const Main = () => {
       {/* Project List Container */}          
       <div className={styles.project_list_container}>            
         <h2>Project List              
-          <button className={styles.white_project_btn} onClick={handleProject}>                
+          {isAdmin && (
+            <button className={styles.white_project_btn} onClick={handleProject}>                
             +              
-          </button>            
+          </button> 
+          )}  
         </h2>               
         {loading ? (              
           <p>Loading projects...</p>            

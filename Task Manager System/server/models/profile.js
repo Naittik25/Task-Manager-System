@@ -13,7 +13,7 @@ const validate = (data) => {
     const schema = Joi.object({
         id: Joi.string().trim().label("Id"),
         name: Joi.string().trim().required().label("Name"),
-        description: Joi.string().trim().max(500).allow(null).optional().label("Description"),
+        description: Joi.string().trim().max(500).allow(null).allow("").optional().label("Description"),
         permission: Joi.object({
             create_task: Joi.boolean().default(false).label("Create Task"),
             edit_task: Joi.boolean().default(false).label("Edit Task"),

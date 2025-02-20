@@ -31,7 +31,9 @@ const Profile = () => {
 
   const handleCreateProfile = async () => {
     try {
-      const newProfile = { name, description, permissions };
+      const newProfile = { name };
+      if (permissions) newProfile.permission = permissions;
+      if (description) newProfile.description = description;
       const { data } = await axios.post("http://localhost:3001/api/profile", newProfile);
       console.log(data, "==data");
       localStorage.setItem("profileData", JSON.stringify(data.data));
@@ -85,14 +87,18 @@ const Profile = () => {
   };
 
   const handleDeleteProfile = async () => {
+    if (!profileToDelete) return; // Ensure a profile is selected
+  
     try {
       await axios.delete(`http://localhost:3001/api/profile/${profileToDelete}`);
       setProfiles(profiles.filter((profile) => profile._id !== profileToDelete));
       setShowModal(false);
+      setProfileToDelete(null); // Reset after deletion
     } catch (error) {
       console.error("Error deleting profile. Please try again.");
     }
   };
+  
 
   const handleBackToHome = () => {
     navigate("/dashboard"); // Navigate to the home page

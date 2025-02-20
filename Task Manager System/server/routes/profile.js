@@ -72,7 +72,7 @@ router.get("/", async (req, res) => {
 
 		return res.status(200).send({ data: profile, message: "Profile loaded successfully" });
 	} catch (error) {
-		res.status(500).send({ message: "Something went wrong try again later." });
+				res.status(500).send({ message: "Something went wrong try again later." });
 	}
 })
 

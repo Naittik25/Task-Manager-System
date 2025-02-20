@@ -20,6 +20,7 @@ router.post("/", async (req, res) => {
 		const newProject = await new ProjectUser(req.body).save();
 		res.status(201).send({ message: "Project User created successfully", data: newProject });
 	} catch (error) {
+		console.log(error);
 		res.status(500).send({ message: "Something went wrong try again later." });
 	}
 });

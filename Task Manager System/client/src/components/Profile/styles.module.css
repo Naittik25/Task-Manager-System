@@ -368,3 +368,36 @@
 	font-weight: bold;
   }
   
+  .modal_content ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.modal_content li {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	background: #f9f9f9;
+	width: 100%;
+}
+
+.modal_content input[type="checkbox"] {
+	width: 18px;
+	height: 18px;
+	cursor: pointer;
+}
+
+.modal_content label {
+	cursor: pointer;
+	font-size: 1rem;
+	flex-grow: 1;
+	text-transform: capitalize;
+}
