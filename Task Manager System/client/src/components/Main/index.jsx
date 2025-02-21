@@ -63,6 +63,10 @@ const Main = () => {
     navigate("/project"); // Navigate to the page where users can add a project   
   };
 
+  const handleProjectClick = (projectId) => {     
+    navigate(`/project/${projectId}`); // Pass the projectId to the Project page   
+  };
+
   // Handle editing a project   
   const handleEdit = (project) => {     
     navigate(`/project/edit/${project}`); // Pass the projectId to the EditProject page
@@ -97,7 +101,7 @@ const Main = () => {
         ) : (              
           <ul className={styles.project_list}>                
             {projects.map((project) => (                  
-              <li key={project.id} className={styles.project_item}>                    
+              <li key={project.id} className={styles.project_item} onClick={() => handleProjectClick(project._id)}>                    
                 <div className={styles.project_name}>{project.name}</div>                    
                 <br />                    
                 <div className={styles.project_dates}>

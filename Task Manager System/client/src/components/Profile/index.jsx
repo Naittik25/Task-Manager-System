@@ -87,18 +87,18 @@ const Profile = () => {
   };
 
   const handleDeleteProfile = async () => {
-    if (!profileToDelete) return; // Ensure a profile is selected
-  
-    try {
-      await axios.delete(`http://localhost:3001/api/profile/${profileToDelete}`);
-      setProfiles(profiles.filter((profile) => profile._id !== profileToDelete));
-      setShowModal(false);
-      setProfileToDelete(null); // Reset after deletion
-    } catch (error) {
-      console.error("Error deleting profile. Please try again.");
-    }
-  };
-  
+  if (!profileToDelete) return; // Ensure a profile is selected
+
+  try {
+    await axios.delete(`http://localhost:3001/api/profile/${profileToDelete}`);
+    setProfiles(profiles.filter((profile) => profile._id !== profileToDelete));
+    setShowModal(false);
+    setProfileToDelete(null); // Reset after deletion
+  } catch (error) {
+    console.error("Error deleting profile. Please try again.");
+  }
+};
+
 
   const handleBackToHome = () => {
     navigate("/dashboard"); // Navigate to the home page
@@ -156,9 +156,10 @@ const Profile = () => {
               <button onClick={() => handleEditProfile(profile)} className={styles.edit_button}>
                 Edit Permissions
               </button>
-              <button onClick={() => setShowModal(true)} className={styles.delete_button}>
-                Delete
-              </button>
+              <button onClick={() => setProfileToDelete(profile._id) || setShowModal(true)} className={styles.delete_button}>
+  Delete
+</button>
+
             </li>
           ))
         )}
