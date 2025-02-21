@@ -8,6 +8,7 @@ const authRoutes = require("./routes/auth");
 const profileRoutes = require('./routes/profile');
 const projectRoutes = require('./routes/project');
 const projectUserRoutes = require('./routes/projectUser');
+const taskRoutes = require("./routes/task");
 
 // database connection
 connection();
@@ -22,6 +23,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/project", projectRoutes);
 app.use("/api/project_user", projectUserRoutes);
+app.use("/api/task", taskRoutes);
 
 const port = process.env.PORT || 3001;
 app.listen(port, console.log(`Listening on port ${port}...`));
