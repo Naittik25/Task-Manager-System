@@ -68,7 +68,8 @@ const Main = () => {
   };
 
   // Handle editing a project   
-  const handleEdit = (project) => {     
+  const handleEdit = (event, project) => {   
+    event.stopPropagation(); 
     navigate(`/project/edit/${project}`); // Pass the projectId to the EditProject page
   };
 
@@ -101,11 +102,11 @@ const Main = () => {
         ) : (              
           <ul className={styles.project_list}>                
             {projects.map((project) => (                  
-              <li key={project.id} className={styles.project_item} onClick={() => handleProjectClick(project._id)}>                    
+              <li key={project._id} className={styles.project_item} onClick={() => handleProjectClick(project._id)}>                    
                 <div className={styles.project_name}>{project.name}</div>                    
                 <br />                    
                 <div className={styles.project_dates}>
-                    {(project.start_date).split("T")[0]} =&gt; {(project.end_date).split("T")[0]}
+                    {project.start_date ? (project.start_date).split("T")[0] : ''} =&gt; { project.end_date ? (project.end_date).split("T")[0] : ''}
                 </div>
                         
                 <br />                    
@@ -126,7 +127,7 @@ const Main = () => {
                 {isAdmin &&(
                 <button 
                   className={styles.edit_project_btn} 
-                  onClick={() => handleEdit(project._id)}>
+                  onClick={(event) => handleEdit(event, project._id)}>
                   Edit
                 </button>   
                 )}             

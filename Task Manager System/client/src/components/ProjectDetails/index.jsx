@@ -6,7 +6,7 @@ import styles from "./styles.module.css";
 const ProjectDetails = () => {
   const { projectId } = useParams();
   const navigate = useNavigate();
-  const [project, setProject] = useState(null);
+  const [project, setProject] = useState({});
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -14,7 +14,7 @@ const ProjectDetails = () => {
     const fetchProjectDetails = async () => {
       try {
         const { data } = await axios.get(`http://localhost:3001/api/project/${projectId}`);
-        setProject(data.project);
+        setProject(data.data);
         setTasks(data.tasks);
       } catch (error) {
         console.error("Error fetching project details:", error);
@@ -26,9 +26,16 @@ const ProjectDetails = () => {
     fetchProjectDetails();
   }, [projectId]);
 
+    // Log the project after it has been updated
+    useEffect(() => {
+      if (project) {
+        console.log("Updated project state:", project);  // Log after the state is updated
+      }
+    }, [project]);
+
   return (
     <div className={styles.project_details_container}>
-      <button className={styles.back_button} onClick={() => navigate("/")}>← Back to Projects</button>
+      <button className={styles.back_button} onClick={() => navigate("/dashboard")}>← Back to Projects</button>
       
       {loading ? (
         <p>Loading project details...</p>
@@ -40,20 +47,6 @@ const ProjectDetails = () => {
           <p><strong>Priority:</strong> {project.priority}</p>
           <p><strong>Start Date:</strong> {project.start_date.split("T")[0]}</p>
           <p><strong>End Date:</strong> {project.end_date.split("T")[0]}</p>
-
-          <h2>Tasks</h2>
-          {tasks.length === 0 ? <p>No tasks assigned yet.</p> : (
-            <ul className={styles.task_list}>
-              {tasks.map((task) => (
-                <li key={task._id} className={styles.task_item}>
-                  <h3>{task.name}</h3>
-                  <p><strong>Assigned To:</strong> {task.assigned_member}</p>
-                  <p><strong>Estimated Completion Time:</strong> {task.estimated_time} hours</p>
-                  <p><strong>Status:</strong> {task.status}</p>
-                </li>
-              ))}
-            </ul>
-          )}
         </>
       )}
     </div>
