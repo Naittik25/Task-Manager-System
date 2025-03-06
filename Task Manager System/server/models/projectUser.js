@@ -9,7 +9,7 @@ const projectUserSchema = new mongoose.Schema({
 	},
     user_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'users',
+		ref: 'user',
 		required: false
 	},
     profile_id: {

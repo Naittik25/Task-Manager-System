@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./styles.module.css"; // Import the CSS Module
@@ -9,10 +9,17 @@ const Task = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState(null);
   const [status, setStatus] = useState("Pending");
+  const [reporter, setReporter] = useState(null);
+  const [assignee, setAssignee] = useState(null);
   const [priority, setPriority] = useState("");
   const [start_date, setstartDate] = useState(null);
   const [end_date, setEndDate] = useState(null);
   const [due_date, setDueDate] = useState(null);
+  const [due_hour, setDueHour] = useState(null);
+  const [due_minute, setDueMinute] = useState(null);
+  const [users, setUsers] = useState([]); // All users
+  const [error, setError] = useState(null);
+  
 
   const navigate = useNavigate();
 
@@ -39,6 +46,21 @@ const Task = () => {
       console.error("Error creating task. Please try again.");
     }
   };
+
+  useEffect(() => {
+
+  const fetchUsers = async () => {
+    try {
+      const { data } = await axios.get("http://localhost:3001/api/project_user");
+      setUsers(data.data); // All available users
+    } catch (err) {
+      setError("Failed to fetch users");
+    }
+  };
+
+  fetchUsers();
+}, []);
+
 
   const handleBackToHome = () => {
     navigate("/dashboard"); // Navigate to the home page
@@ -100,6 +122,36 @@ const Task = () => {
           className={styles.input}
         />
         </h3>
+      
+      <h3>Estimate Hours:
+      {/* Due Time Picker */}
+        <select
+          value={due_hour}
+          onChange={(e) => setDueHour(e.target.value)}
+          className={styles.timeInput}
+        >
+          {/* Hour options */}
+          {[...Array(24).keys()].map((hour) => (
+            <option key={hour} value={hour}>
+              {hour < 10 ? `0${hour}` : hour}
+            </option>
+          ))}
+        </select>
+        <span>Hours</span>
+        <select
+          value={due_minute}
+          onChange={(e) => setDueMinute(e.target.value)}
+          className={styles.timeInput}
+        >
+          {/* Minute options */}
+          {[...Array(60).keys()].map((minute) => (
+            <option key={minute} value={minute}>
+              {minute < 10 ? `0${minute}` : minute}
+            </option>
+          ))}
+        </select>
+        <span>Minutes</span>
+    </h3>
 
         {/* Dropdown for Status */}
         <h3> Status:
@@ -113,6 +165,36 @@ const Task = () => {
           <option value="In Progress">In Progress</option>
           <option value="Complete">Complete</option>
           <option value="Hold">Hold</option>
+        </select>
+        </h3>
+
+        {/* Dropdown for Status */}
+        <h3> Reporter:
+        <select
+          value={reporter}
+          onChange={(e) => setReporter(e.target.value)}
+          className={styles.input}
+          required
+        >
+          {/* Use fetched users to populate the dropdown */}
+          {users.map((user) => (
+            <option key={user._id} value={user._id}>{user?.user_id?.fullName} ({user?.profile_id?.name})</option>
+          ))}
+        </select>
+        </h3>
+
+        {/* Dropdown for Status */}
+        <h3> Assignee:
+        <select
+          value={assignee}
+          onChange={(e) => setAssignee(e.target.value)}
+          className={styles.input}
+          required
+        >
+          {/* Use fetched users to populate the dropdown */}
+          {users.map((user) => (
+            <option key={user._id} value={user._id}>{user?.user_id?.fullName} ({user?.profile_id?.name})</option>
+          ))}
         </select>
         </h3>
 

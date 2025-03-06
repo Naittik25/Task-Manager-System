@@ -43,10 +43,20 @@ router.put("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
 	try {
-		const projectUser = await ProjectUser.find();
+		const projectUser = await ProjectUser.find().populate([
+			{
+				model: "user",
+				path: "user_id"
+			},
+			{
+				model: "profile",
+				path: "profile_id"
+			}
+		]);
 
 		return res.status(200).send({ data: projectUser, message: "Project User loaded successfully" });
 	} catch (error) {
+		console.log(error)
 		res.status(500).send({ message: "Something went wrong try again later." });
 	}
 })
