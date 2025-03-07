@@ -1,12 +1,23 @@
-/* Container */
-.project_list_container {
+/* Main Container */
+.container {
+    display: flex;
     max-width: 1200px;
     margin: auto;
     padding: 20px;
+    gap: 20px;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 30%;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
   /* Back Button */
-  .back_button {
+  .backButton {
     background-color: #4CAF50;
     color: white;
     padding: 10px 15px;
@@ -15,63 +26,82 @@
     cursor: pointer;
     font-size: 16px;
     margin-bottom: 20px;
+    width: 100%;
     transition: background 0.3s ease-in-out;
   }
   
-  .back_button:hover {
-    background-color: #1e40af;
-  }
-  
-  /* Project Grid */
-  .project_grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+  .backButton:hover {
+    background-color: #4CAF50;
   }
   
   /* Project Card */
-  .project_card {
+  .projectCard {
     background: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
     padding: 20px;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
-  .project_card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  }
-  
-  /* Project Title */
-  .project_title {
-    font-size: 1.4rem;
+  .projectTitle {
+    font-size: 1.5rem;
     font-weight: bold;
     color: #333;
     margin-bottom: 10px;
   }
   
-  /* Project Info */
-  .project_info p {
-    margin: 5px 0;
-    color: #555;
+  /* Task Section */
+  .taskSection {
+    width: 95%;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
-  /* View Details Button */
-  .view_details_button {
-    display: block;
-    width: 100%;
-    text-align: center;
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
+  .taskTitle {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .taskList {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .taskItem {
+    background: #f1f1f1;
+    padding: 15px;
     border-radius: 6px;
-    margin-top: 15px;
-    transition: background 0.3s ease-in-out;
+    margin-bottom: 10px;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .edit_button {
+    background-color: #4CAF50;
+  }
+
+  .delete_button {
+    background-color: rgb(223, 59, 59);
+  }
+
+  .timeInput {
+	margin-left: 2%;
+	margin-right: 1%;
+	width: 12%;
+}
+  
+  .taskItem:hover {
+    transform: translateX(5px);
   }
   
-  .view_details_button:hover {
-    background-color: #2563eb;
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+    }
+    .sidebar, .taskSection {
+      width: 100%;
+    }
   }
   

@@ -7,6 +7,7 @@ import Project from "./components/Project";
 import ProjectEdit from "./components/ProjectEdit";
 import ProjectDetails from "./components/ProjectDetails";
 import ProjectTask from "./components/Task";
+import ProjectTasks from "./components/TaskDetails";
 
 function App() {
 	const user = localStorage.getItem("token");
@@ -22,6 +23,7 @@ function App() {
 			<Route path="/project/:projectId" exact element={<ProjectDetails />} />
 			<Route path="/dashboard" exact element={<Main />} />
 			<Route path="/project/:projectId/task" exact element={<ProjectTask />} />
+			<Route path="/project/:projectId/tasks" exact element={<ProjectTasks />} />
 		</Routes>
 	);
 }

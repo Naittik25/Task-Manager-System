@@ -4,6 +4,7 @@ const { Project } = require("../models/project");
 const { ProjectUser } = require("../models/projectUser");
 const { Profile } = require("../models/profile");
 const { User } = require("../models/user");
+const { model } = require("mongoose");
 
 router.post("/", async (req, res) => {
 	try {
@@ -44,39 +45,71 @@ router.put("/", async (req, res) => {
 	}
 });
   
-router.get("/", async (req, res) => {
+router.get("/:id", async (req, res) => {
 	try {
-		const task = await Task.find();
+		let users;
+		const { id } = req.params;
+		const task = await Task.find({ project_id: id }).lean();
 
-		return res.status(200).send({ data: task, message: "Task loaded successfully" });
+		const results = await Promise.all(task?.map(async e=>{
+			let projectUser,reporterUser;
+			if (e?.assignee_id) {
+			projectUser = await ProjectUser.findById(e.assignee_id).populate([{
+					path: "user_id",
+					model: "user"
+				}, {
+					path: "profile_id",
+					model: "profile"
+				}]).lean();
+			}
+			if (e?.reporter_id){
+
+			reporterUser = await ProjectUser.findById(e.reporter_id).populate([{
+					path: "user_id",
+					model: "user"
+				}, {
+					path: "profile_id",
+					model: "profile"
+				}]).lean();
+
+			}
+			return { 
+				...e,
+				reporter : { id: reporterUser?._id, name: reporterUser?.user_id?.fullName, profile_name: reporterUser?.profile_id?.name },
+				assignee: { id: projectUser?._id, name: projectUser?.user_id?.fullName, profile_name: projectUser?.profile_id?.name  } 
+			}
+		}))
+
+		return res.status(200).send({ data: results, message: "Task loaded successfully" });
 	} catch (error) {
+		console.log(error);
 		res.status(500).send({ message: "Something went wrong try again later." });
 	}
 })
 
-router.get("/:id", async (req, res) => {
-	try {
-		const task = await Task.findById(req.params.id);
-		if (!task) return res.status(404).send({ message: "Task not found" });
+// router.get("/:id", async (req, res) => {
+// 	try {
+// 		const task = await Task.findById(req.params.id);
+// 		if (!task) return res.status(404).send({ message: "Task not found" });
 
-		const user = await ProjectUser.find({ project_id: req.params.id }); 
+// 		const user = await ProjectUser.find({ project_id: req.params.id }); 
 
-		if (user.length) {
-			await Promise.all(user.map(async e => {
-				const userdetail = await User.findById(e.user_id);
-				const profile = await Profile.findById(e.profile_id);
-				e._doc.name = userdetail?.fullName;
-				e._doc.profile_name = profile?.name;
-				return { name: userdetail?.fullName, ...e };
-			}))
-			project._doc.users = user || [];
-		}
+// 		if (user.length) {
+// 			await Promise.all(user.map(async e => {
+// 				const userdetail = await User.findById(e.user_id);
+// 				const profile = await Profile.findById(e.profile_id);
+// 				e._doc.name = userdetail?.fullName;
+// 				e._doc.profile_name = profile?.name;
+// 				return { name: userdetail?.fullName, ...e };
+// 			}))
+// 			project._doc.users = user || [];
+// 		}
 
-		return res.status(200).send({ data: project, message: "Project loaded successfully" });
-	} catch (error) {
-		res.status(500).send({ message: "Something went wrong try again later.", data: error });
-	}
-})
+// 		return res.status(200).send({ data: project, message: "Project loaded successfully" });
+// 	} catch (error) {
+// 		res.status(500).send({ message: "Something went wrong try again later.", data: error });
+// 	}
+// })
 
 // DELETE route to delete a project by its ID
 router.delete("/:id", async (req, res) => {

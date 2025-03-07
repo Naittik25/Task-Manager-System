@@ -9,14 +9,17 @@ const Task = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState(null);
   const [status, setStatus] = useState("Pending");
+  const [task_type, settaskType] = useState("New Implementation");
   const [reporter, setReporter] = useState(null);
   const [assignee, setAssignee] = useState(null);
   const [priority, setPriority] = useState("");
   const [start_date, setstartDate] = useState(null);
   const [end_date, setEndDate] = useState(null);
   const [due_date, setDueDate] = useState(null);
-  const [due_hour, setDueHour] = useState(null);
-  const [due_minute, setDueMinute] = useState(null);
+  const [estimate_hour, setEstimateHour] = useState("00");
+  const [estimate_minute, setEstimateMinute] = useState("00");
+  const [task_log_hour, setTaskLogHour] = useState("00");
+  const [task_log_minute, setTaskLogMinute] = useState("00");
   const [users, setUsers] = useState([]); // All users
   const [error, setError] = useState(null);
   
@@ -25,7 +28,13 @@ const Task = () => {
 
   const handleCreateProfile = async () => {
     try {
-      const newTask = { project_id: projectId, name, description, priority, status, start_date, end_date, due_date }; // Include status in the new task
+      const estimateHour = `${estimate_hour} Hour : ${estimate_minute} Minute`;
+      const taskLogHour = `${task_log_hour} Hour : ${task_log_minute} Minute`;
+      const newTask = {
+        project_id: projectId, name, description, priority : "Low", status, start_date, end_date, due_date,
+        estimate_hour: estimateHour, task_log_hour: taskLogHour, reporter_id: reporter, assignee_id: assignee,
+        task_type
+      }; // Include status in the new task
       const { data } = await axios.post("http://localhost:3001/api/task", newTask);
       console.log(data, "==data");
 
@@ -60,7 +69,6 @@ const Task = () => {
 
   fetchUsers();
 }, []);
-
 
   const handleBackToHome = () => {
     navigate("/dashboard"); // Navigate to the home page
@@ -123,35 +131,81 @@ const Task = () => {
         />
         </h3>
       
-      <h3>Estimate Hours:
-      {/* Due Time Picker */}
+        <h3>Estimate Hours:
+        {/* Time Picker */}
+          <select
+            value={estimate_hour}
+            onChange={(e) => setEstimateHour(e.target.value)}
+            className={styles.timeInput}
+          >
+            {/* Hour options */}
+            {[...Array(24).keys()].map((hour) => (
+              <option key={hour} value={hour}>
+                {hour < 10 ? `0${hour}` : hour}
+              </option>
+            ))}
+          </select>
+          <span>Hours</span>
+          <select
+            value={estimate_minute}
+            onChange={(e) => setEstimateMinute(e.target.value)}
+            className={styles.timeInput}
+          >
+            {/* Minute options */}
+            {[...Array(60).keys()].map((minute) => (
+              <option key={minute} value={minute}>
+                {minute < 10 ? `0${minute}` : minute}
+              </option>
+            ))}
+          </select>
+          <span>Minutes</span>
+        </h3>
+
+        <h3>Task Log Hours:
+        {/* Time Picker */}
+          <select
+            value={task_log_hour}
+            onChange={(e) => setTaskLogHour(e.target.value)}
+            className={styles.timeInput}
+          >
+            {/* Hour options */}
+            {[...Array(24).keys()].map((hour) => (
+              <option key={hour} value={hour}>
+                {hour < 10 ? `0${hour}` : hour}
+              </option>
+            ))}
+          </select>
+          <span>Hours</span>
+          <select
+            value={task_log_minute}
+            onChange={(e) => setTaskLogMinute(e.target.value)}
+            className={styles.timeInput}
+          >
+            {/* Minute options */}
+            {[...Array(60).keys()].map((minute) => (
+              <option key={minute} value={minute}>
+                {minute < 10 ? `0${minute}` : minute}
+              </option>
+            ))}
+          </select>
+          <span>Minutes</span>
+        </h3>
+
+        {/* Dropdown for Task Type */}
+        <h3> Task Type:
         <select
-          value={due_hour}
-          onChange={(e) => setDueHour(e.target.value)}
-          className={styles.timeInput}
+          value={task_type}
+          onChange={(e) => settaskType(e.target.value)}
+          className={styles.input}
+          required
         >
-          {/* Hour options */}
-          {[...Array(24).keys()].map((hour) => (
-            <option key={hour} value={hour}>
-              {hour < 10 ? `0${hour}` : hour}
-            </option>
-          ))}
+          <option value="New Implementation">New Implementation</option>
+          <option value="Enhancement">Enhancement</option>
+          <option value="Bug">Bug</option>
+          <option value="Customization">Customization</option>
+          <option value="Optimization">Optimization</option>
         </select>
-        <span>Hours</span>
-        <select
-          value={due_minute}
-          onChange={(e) => setDueMinute(e.target.value)}
-          className={styles.timeInput}
-        >
-          {/* Minute options */}
-          {[...Array(60).keys()].map((minute) => (
-            <option key={minute} value={minute}>
-              {minute < 10 ? `0${minute}` : minute}
-            </option>
-          ))}
-        </select>
-        <span>Minutes</span>
-    </h3>
+        </h3>
 
         {/* Dropdown for Status */}
         <h3> Status:
@@ -165,6 +219,8 @@ const Task = () => {
           <option value="In Progress">In Progress</option>
           <option value="Complete">Complete</option>
           <option value="Hold">Hold</option>
+          <option value="In Testing">In Testing</option>
+          <option value="Ready For Deploy">Ready For Deploy</option>
         </select>
         </h3>
 
@@ -241,6 +297,10 @@ const Task = () => {
 
         <button onClick={handleCreateProfile} className={styles.button}>
           Create Task
+        </button>
+
+        <button onClick={handleCreateProfile} className={styles.button}>
+         Task Details
         </button>
       </div>
     </div>

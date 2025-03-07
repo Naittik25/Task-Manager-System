@@ -61,6 +61,7 @@ const ProjectDetails = () => {
       )}
 
 <button className={styles.back_button} onClick={() => navigate(`/project/${project._id}/task`)}>Create Task </button>
+<button className={styles.back_button} onClick={() => navigate(`/project/${project._id}/tasks`)}>Task Details</button>
     </div>
   );
 };
