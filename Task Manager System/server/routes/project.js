@@ -44,9 +44,14 @@ router.put("/", async (req, res) => {
   
 router.get("/", async (req, res) => {
 	try {
-		const project = await Project.find();
-
-		return res.status(200).send({ data: project, message: "Project loaded successfully" });
+		let result;
+		const project = await Project.find().lean();
+		if (!req.query.isAdmin) {
+			const projectUser = await ProjectUser.find({ user_id: req.query.user_id }).lean();
+			const projectId = projectUser?.map(e=>e?.project_id?.toString());
+			result = project.filter(i=> projectId.includes(i._id.toString()));
+		} else result = project
+		return res.status(200).send({ data: result, message: "Project loaded successfully" });
 	} catch (error) {
 		res.status(500).send({ message: "Something went wrong try again later." });
 	}
@@ -65,6 +70,7 @@ router.get("/:id", async (req, res) => {
 				const profile = await Profile.findById(e.profile_id);
 				e._doc.name = userdetail?.fullName;
 				e._doc.profile_name = profile?.name;
+				e._doc.permission = profile?.permission;
 				return { name: userdetail?.fullName, ...e };
 			}))
 			project._doc.users = user || [];

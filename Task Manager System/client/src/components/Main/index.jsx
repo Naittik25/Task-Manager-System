@@ -22,10 +22,13 @@ const Main = () => {
   // Decode the token to check if the user is an admin   
   const token = localStorage.getItem("token");   
   let isAdmin = false;
+  let userId = null;
 
   if (token) {     
     const decodedToken = decodeToken(token);     
-    isAdmin = decodedToken?.isAdmin || false; // Extract isAdmin from the decoded token   
+    isAdmin = decodedToken?.isAdmin || false; // Extract isAdmin from the decoded token  
+    userId = decodedToken?._id; 
+    localStorage.setItem("user", userId)
   }
 
   const handleLogout = () => {     
@@ -43,8 +46,9 @@ const Main = () => {
 
   // Fetch projects from the API   
   const fetchProjectList = async () => {     
-    try {       
-      const { data } = await axios.get("http://localhost:3001/api/project");       
+    try {
+      console.log(userId)
+      const { data } = await axios.get(`http://localhost:3001/api/project?user_id=${userId}&&isAdmin=${isAdmin}`);       
       setProjects(data.data);       
       setLoading(false); // Stop the loading state once data is fetched     
     } catch (error) {       

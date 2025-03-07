@@ -5,6 +5,7 @@ import styles from "./styles.module.css";
 
 const ProjectDetails = () => {
   const { projectId } = useParams();
+  const [userId, setUserId ] = useParams();
   const navigate = useNavigate();
   const [project, setProject] = useState({});
   const [tasks, setTasks] = useState([]);
@@ -32,6 +33,8 @@ const ProjectDetails = () => {
         console.log("Updated project state:", project);  // Log after the state is updated
       }
     }, [project]);
+
+    // const permission = project?.users?.find(e=>e._id === userId);
 
   return (
     <div className={styles.project_details_container}>
