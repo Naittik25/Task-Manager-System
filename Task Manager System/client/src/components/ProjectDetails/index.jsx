@@ -5,7 +5,7 @@ import styles from "./styles.module.css";
 
 const ProjectDetails = () => {
   const { projectId } = useParams();
-  const [userId, setUserId ] = useParams();
+  // const [userId, setUserId ] = useParams();
   const navigate = useNavigate();
   const [project, setProject] = useState({});
   const [tasks, setTasks] = useState([]);
