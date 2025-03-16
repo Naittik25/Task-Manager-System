@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./styles.module.css";
+import { FaTasks, FaStopCircle } from "react-icons/fa";
+import { FcList, FcAlarmClock, FcOvertime, FcApproval } from "react-icons/fc";
 
 const ProjectDetails = () => {
   const { projectId } = useParams();
@@ -37,9 +39,35 @@ const ProjectDetails = () => {
     // const permission = project?.users?.find(e=>e._id === userId);
 
   return (
-    <div className={styles.project_details_container}>
+    <div className={styles.dashboard_container}>
+      <div className={styles.dashboard_header}>
       <button className={styles.back_button} onClick={() => navigate("/dashboard")}>← Back to Projects</button>
-      
+      <button className={styles.add_button} onClick={() => navigate(`/project/${project._id}/task`)}>Create Task </button>
+      <button className={styles.task_button} onClick={() => navigate(`/project/${project._id}/tasks`)}>Task Details</button>
+      </div>
+            {/* Dashboard Cards */}
+            <div className={styles.dashboard_cards}>
+        {[
+          { label: "Total Tasks", value: 10, icon: <FcList/> },
+          { label: "Completed Tasks", value: 2, icon: <FcApproval/> },
+          { label: "Pending Tasks", value: 3, icon: <FaTasks/> },
+          { label: "In Progress Tasks", value: 1, icon: <FcAlarmClock/> },
+          { label: "On Hold Tasks", value: 2, icon: <FaStopCircle/> },
+          { label: "Overdue Tasks", value: 2, icon: <FcOvertime/> },
+        ].map((item, index) => (
+          <div key={index} className={styles.dashboard_card}>
+            <div className={styles.icon}>{item.icon}</div>
+            <p className={styles.card_value}>{item.value}</p>
+            <p className={styles.card_label}>{item.label}</p>
+          </div>
+        ))}
+      </div>
+      {/* Progress Bar */}
+      {1 && (  // Only show progress bar on Completed Tasks
+        <div className={styles.progress_bar_container}>
+          <div className={styles.progress_bar} style={{ width: `50%` }}></div>
+        </div>
+      )}
       {loading ? (
         <p>Loading project details...</p>
       ) : (
@@ -52,19 +80,14 @@ const ProjectDetails = () => {
           <p><strong>End Date:</strong> {project.end_date.split("T")[0]}</p>
           <div className={styles.modal}>
           <div className={styles.modalContent}>
-            <h2>Project User Role</h2>
-            <p>
+            {/* <h2>Project User Role</h2> */}
               {project?.users?.map((user) => (
                 <p><strong>{user?.profile_name}:</strong>  {user?.name}</p>
               ))}
-            </p>
           </div>
         </div>
         </>
       )}
-
-<button className={styles.back_button} onClick={() => navigate(`/project/${project._id}/task`)}>Create Task </button>
-<button className={styles.back_button} onClick={() => navigate(`/project/${project._id}/tasks`)}>Task Details</button>
     </div>
   );
 };

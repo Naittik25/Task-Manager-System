@@ -34,7 +34,7 @@
   button {
 	padding: 10px 20px;
 	border: none;
-	background-color: #4CAF50;
+	background-color: #45a049;
 	color: white;
 	font-size: 1rem;
 	cursor: pointer;
@@ -183,7 +183,7 @@
 }
 
 .delete_button:hover {
-  background-color:  #3bb19b;
+  background-color:  #45a049;
 }
 
 .profile_item {

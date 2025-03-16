@@ -114,8 +114,11 @@ const Main = () => {
                 </div>
                         
                 <br />                    
+                <div className={styles.progress_bar_container}>
+                  <div className={styles.progress_bar} style={{ width: `40%` }}></div>
+                </div>
                 <div className={styles.project_description}>({project.description?.toLowerCase()})</div>                   
-                <div className={styles.project_status}>{project.status}</div>                     
+                <div className={styles.project_status}>{project.status}</div>                  
                 <div className={styles.project_priority}>                      
                   {project.priority === 'High' && (                        
                     <FaFlag style={{ color: 'red' }} data-tooltip="High priority" />                      
