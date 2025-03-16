@@ -63,11 +63,11 @@ const ProjectDetails = () => {
         ))}
       </div>
       {/* Progress Bar */}
-      {1 && (  // Only show progress bar on Completed Tasks
+      {/* {1 && (  // Only show progress bar on Completed Tasks
         <div className={styles.progress_bar_container}>
           <div className={styles.progress_bar} style={{ width: `50%` }}></div>
         </div>
-      )}
+      )} */}
       {loading ? (
         <p>Loading project details...</p>
       ) : (

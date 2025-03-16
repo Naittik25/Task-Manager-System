@@ -67,7 +67,7 @@
 	margin-bottom:15px;
 	padding-right: 50px; /* Ensure space for the priority and status */
 	width: 23%;
-	background-color: #d4f3ed;
+	background-color: #d5e6e2;
   }
   
   .project_name {
@@ -126,7 +126,7 @@
   
   .progress_bar_container {
     width: 80%;
-    background-color: #e0e0e0;
+    background-color: #f8f2f2;
     border-radius: 10px;
     height: 10px;
     overflow: hidden;
