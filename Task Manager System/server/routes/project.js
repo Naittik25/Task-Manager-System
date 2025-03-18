@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { Project, validate } = require("../models/project");
+const { Task } = require("../models/task");
 const { ProjectUser } = require("../models/projectUser");
 const { Profile } = require("../models/profile");
 const { User } = require("../models/user");
@@ -59,8 +60,10 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
 	try {
-		const project = await Project.findById(req.params.id);
+		const project = await Project.findById(req.params.id).lean();
 		if (!project) return res.status(404).send({ message: "Project not found" });
+
+		const tasks = await Task.find({ project_id: req.params.id });
 
 		const user = await ProjectUser.find({ project_id: req.params.id }); 
 
@@ -73,11 +76,12 @@ router.get("/:id", async (req, res) => {
 				e._doc.permission = profile?.permission;
 				return { name: userdetail?.fullName, ...e };
 			}))
-			project._doc.users = user || [];
+			project.users = user || [];
 		}
 
-		return res.status(200).send({ data: project, message: "Project loaded successfully" });
+		return res.status(200).send({ data: { ...project, tasks }, message: "Project loaded successfully" });
 	} catch (error) {
+		console.log(error)
 		res.status(500).send({ message: "Something went wrong try again later.", data: error });
 	}
 })

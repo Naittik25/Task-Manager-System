@@ -110,23 +110,23 @@ const Main = () => {
                 <div className={styles.project_name}>{project.name}</div>                    
                 <br />                    
                 <div className={styles.project_dates}>
-                    {project.start_date ? (project.start_date).split("T")[0] : ''} =&gt; { project.end_date ? (project.end_date).split("T")[0] : ''}
+                    {project?.start_date ? (project.start_date).split("T")[0] : ''} =&gt; { project?.end_date ? (project.end_date).split("T")[0] : ''}
                 </div>
                         
                 <br />                    
                 <div className={styles.progress_bar_container}>
                   <div className={styles.progress_bar} style={{ width: `40%` }}></div>
                 </div>
-                <div className={styles.project_description}>({project.description?.toLowerCase()})</div>                   
-                <div className={styles.project_status}>{project.status}</div>                  
+                <div className={styles.project_description}>({project?.description?.toLowerCase()})</div>                   
+                <div className={styles.project_status}>{project?.status}</div>                  
                 <div className={styles.project_priority}>                      
-                  {project.priority === 'High' && (                        
+                  {project?.priority === 'High' && (                        
                     <FaFlag style={{ color: 'red' }} data-tooltip="High priority" />                      
                   )}                      
-                  {project.priority === 'Low' && (                        
+                  {project?.priority === 'Low' && (                        
                     <FaFlag style={{ color: '#E1AD01' }} data-tooltip="Low priority" />                      
                   )}                      
-                  {project.priority === 'Medium' && (                        
+                  {project?.priority === 'Medium' && (                        
                     <FaFlag style={{ color: 'green' }} data-tooltip="Medium priority" />                      
                   )}                    
                 </div>

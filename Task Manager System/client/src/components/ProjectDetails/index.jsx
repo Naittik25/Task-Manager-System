@@ -18,7 +18,7 @@ const ProjectDetails = () => {
       try {
         const { data } = await axios.get(`http://localhost:3001/api/project/${projectId}`);
         setProject(data.data);
-        setTasks(data.tasks);
+        setTasks(data.data.tasks);
       } catch (error) {
         console.error("Error fetching project details:", error);
       } finally {
@@ -29,12 +29,19 @@ const ProjectDetails = () => {
     fetchProjectDetails();
   }, [projectId]);
 
-    // Log the project after it has been updated
-    useEffect(() => {
-      if (project) {
-        console.log("Updated project state:", project);  // Log after the state is updated
-      }
-    }, [project]);
+  // Log the project after it has been updated
+  useEffect(() => {
+    if (project) {
+      console.log("Updated project state:", project);  // Log after the state is updated
+    }
+  }, [project]);
+
+  const totalTask = tasks?.length || 0;
+  const completedTask = tasks?.filter(e=> e.status === "Completed")?.length || 0;
+  const pendingTask = tasks?.filter(e=> e.status === "Pending")?.length || 0;
+  const inProgressTask = tasks?.filter(e=> e.status === "In Progress")?.length || 0;
+  const onHoldTask = tasks?.filter(e=> e.status === "Hold")?.length || 0;
+  const overDueTask = tasks?.filter(e=> e.due_date > Date.now())?.length || 0;
 
     // const permission = project?.users?.find(e=>e._id === userId);
 
@@ -48,12 +55,12 @@ const ProjectDetails = () => {
             {/* Dashboard Cards */}
             <div className={styles.dashboard_cards}>
         {[
-          { label: "Total Tasks", value: 10, icon: <FcList/> },
-          { label: "Completed Tasks", value: 2, icon: <FcApproval/> },
-          { label: "Pending Tasks", value: 3, icon: <FaTasks/> },
-          { label: "In Progress Tasks", value: 1, icon: <FcAlarmClock/> },
-          { label: "On Hold Tasks", value: 2, icon: <FaStopCircle/> },
-          { label: "Overdue Tasks", value: 2, icon: <FcOvertime/> },
+          { label: "Total Tasks", value: totalTask, icon: <FcList/> },
+          { label: "Completed Tasks", value: completedTask, icon: <FcApproval/> },
+          { label: "Pending Tasks", value: pendingTask, icon: <FaTasks/> },
+          { label: "In Progress Tasks", value: inProgressTask, icon: <FcAlarmClock/> },
+          { label: "On Hold Tasks", value: onHoldTask, icon: <FaStopCircle/> },
+          { label: "Overdue Tasks", value: overDueTask, icon: <FcOvertime/> },
         ].map((item, index) => (
           <div key={index} className={styles.dashboard_card}>
             <div className={styles.icon}>{item.icon}</div>
@@ -72,12 +79,12 @@ const ProjectDetails = () => {
         <p>Loading project details...</p>
       ) : (
         <>
-          <h1>{project.name}</h1>
-          <p><strong>Description:</strong> {project.description}</p>
-          <p><strong>Status:</strong> {project.status}</p>
-          <p><strong>Priority:</strong> {project.priority}</p>
-          <p><strong>Start Date:</strong> {project.start_date.split("T")[0]}</p>
-          <p><strong>End Date:</strong> {project.end_date.split("T")[0]}</p>
+          <h1>{project?.name}</h1>
+          <p><strong>Description:</strong> {project?.description}</p>
+          <p><strong>Status:</strong> {project?.status}</p>
+          <p><strong>Priority:</strong> {project?.priority}</p>
+          <p><strong>Start Date:</strong> {project?.start_date.split("T")[0]}</p>
+          <p><strong>End Date:</strong> {project?.end_date.split("T")[0]}</p>
           <div className={styles.modal}>
           <div className={styles.modalContent}>
             {/* <h2>Project User Role</h2> */}

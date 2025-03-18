@@ -113,11 +113,11 @@ return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
           <div className={styles.taskSection}>
             <h2 className={styles.taskTitle}>Tasks</h2>
-            {projects.length === 0 ? (
+            {projects?.length === 0 ? (
               <p>No tasks available.</p>
             ) : (
               <ul className={styles.taskList}>
-                {projects.map((task) => (
+                {projects?.map((task) => (
                   <li key={task._id} className={styles.taskItem}>
                     {editingTask === task._id ? (
                       // EDIT MODE
