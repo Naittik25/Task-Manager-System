@@ -91,15 +91,7 @@ const ProjectDetails = () => {
       console.error("Error updating task:", error);
     }
   };
-  
 
-    // Log the project after it has been updated
-    useEffect(() => {
-      if (projects) {
-        console.log("Updated project state:", projects);  // Log after the state is updated
-        // console.log(editValues?.task_log_hour)
-      }
-    }, [projects]);
 
     const handleBackToHome = () => {
       navigate("/dashboard"); // Navigate to the home page

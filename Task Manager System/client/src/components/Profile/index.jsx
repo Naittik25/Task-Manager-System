@@ -170,7 +170,7 @@ const Profile = () => {
           <div className={styles.modal_content}>
             <h2>Edit Permissions for {selectedProfile.name}</h2>
             <ul>
-              {["create_task", "edit_task", "delete_task", "view_task", "assign_task"].map(
+              {["create_task", "edit_task", "delete_task", "view_task"].map(
                 (key) => (
                   <li key={key}>
                     <label>

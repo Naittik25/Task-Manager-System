@@ -47,7 +47,7 @@ const ProjectDetails = () => {
   const onHoldTask = tasks?.filter(e=> e.status === "Hold")?.length || 0;
   const overDueTask = tasks?.filter(e=> e.due_date > Date.now())?.length || 0;
 
-  const permission = project?.users?.find(e=>e._id === userId)?.permission;
+  const permission = project?.users?.find(e=>(e.user_id === userId && e.project_id === projectId))?.permission;
 
   return (
     <div className={styles.dashboard_container}>
