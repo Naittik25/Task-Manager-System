@@ -49,8 +49,10 @@ router.get("/:id", async (req, res) => {
 	try {
 		let users;
 		const { id } = req.params;
+		const { user_id } = req.query;
 		const task = await Task.find({ project_id: id }).lean();
-
+		const projectUser = await ProjectUser.findOne({ project_id: id, user_id }).lean().select("profile_id");
+		const profile = await Profile.findById(projectUser?.profile_id);
 		const results = await Promise.all(task?.map(async e=>{
 			let projectUser,reporterUser;
 			if (e?.assignee_id) {
@@ -75,6 +77,7 @@ router.get("/:id", async (req, res) => {
 			}
 			return { 
 				...e,
+				permission: profile?.permission || null,
 				reporter : { id: reporterUser?._id, name: reporterUser?.user_id?.fullName, profile_name: reporterUser?.profile_id?.name },
 				assignee: { id: projectUser?._id, name: projectUser?.user_id?.fullName, profile_name: projectUser?.profile_id?.name  } 
 			}

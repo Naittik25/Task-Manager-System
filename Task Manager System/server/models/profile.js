@@ -20,11 +20,6 @@ const validate = (data) => {
             delete_task: Joi.boolean().default(false).label("Delete Task"),
             view_task: Joi.boolean().default(false).label("View Task"),
             assign_task: Joi.boolean().default(false).label("Assign Task"),
-            create_project: Joi.boolean().default(false).label("Create Project"),
-            edit_project: Joi.boolean().default(false).label("Edit Project"),
-            delete_project: Joi.boolean().default(false).label("Delete Project"),
-            view_project: Joi.boolean().default(false).label("View Project"),
-            assign_project: Joi.boolean().default(false).label("Assign Project")
         }).optional().allow(null).label("Permission")
     });
     return schema.validate(data);

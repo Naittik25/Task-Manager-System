@@ -18,7 +18,7 @@
   
   /* Back Button */
   .backButton {
-    background-color: #45a049;
+    background-color: #628b64;
     color: white;
     padding: 10px 15px;
     border-radius: 8px;
@@ -31,7 +31,7 @@
   }
   
   .backButton:hover {
-    background-color: #45a049;
+    background-color: #628b64;
   }
   
   /* Project Card */
@@ -78,7 +78,7 @@
   }
 
   .edit_button {
-    background-color: #45a049;
+    background-color: #628b64;
   }
 
   .delete_button {

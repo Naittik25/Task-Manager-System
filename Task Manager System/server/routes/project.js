@@ -51,7 +51,13 @@ router.get("/", async (req, res) => {
 			const projectUser = await ProjectUser.find({ user_id: req.query.user_id }).lean();
 			const projectId = projectUser?.map(e=>e?.project_id?.toString());
 			result = project.filter(i=> projectId.includes(i._id.toString()));
-		} else result = project
+		} else result = project;
+		result = await Promise.all(result?.map(async e => {
+			const tasks = await Task.count({ project_id: e._id });
+			const completeTask = await Task.count({ project_id: e._id, status: "Completed" });
+			const task = (100 * (completeTask || 0))/(tasks || 1);
+			return { ...e, task }
+		}))
 		return res.status(200).send({ data: result, message: "Project loaded successfully" });
 	} catch (error) {
 		res.status(500).send({ message: "Something went wrong try again later." });

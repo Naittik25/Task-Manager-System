@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import styles from "./styles.module.css";
 import { FaTasks, FaStopCircle } from "react-icons/fa";
@@ -7,11 +7,15 @@ import { FcList, FcAlarmClock, FcOvertime, FcApproval } from "react-icons/fc";
 
 const ProjectDetails = () => {
   const { projectId } = useParams();
-  // const [userId, setUserId ] = useParams();
+  const location = useLocation(); // Use useLocation to access the query parameters
   const navigate = useNavigate();
   const [project, setProject] = useState({});
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // Extract query parameter `id` from URL
+  const queryParams = new URLSearchParams(location.search);
+  const userId = queryParams.get('id');
 
   useEffect(() => {
     const fetchProjectDetails = async () => {
@@ -43,14 +47,16 @@ const ProjectDetails = () => {
   const onHoldTask = tasks?.filter(e=> e.status === "Hold")?.length || 0;
   const overDueTask = tasks?.filter(e=> e.due_date > Date.now())?.length || 0;
 
-    // const permission = project?.users?.find(e=>e._id === userId);
+  const permission = project?.users?.find(e=>e._id === userId)?.permission;
 
   return (
     <div className={styles.dashboard_container}>
       <div className={styles.dashboard_header}>
       <button className={styles.back_button} onClick={() => navigate("/dashboard")}>← Back to Projects</button>
+      {(permission?.create_task) &&
       <button className={styles.add_button} onClick={() => navigate(`/project/${project._id}/task`)}>Create Task </button>
-      <button className={styles.task_button} onClick={() => navigate(`/project/${project._id}/tasks`)}>Task Details</button>
+      }
+      <button className={styles.task_button} onClick={() => navigate(`/project/${project._id}/tasks?id=${userId}`)}>Task Details</button>
       </div>
             {/* Dashboard Cards */}
             <div className={styles.dashboard_cards}>

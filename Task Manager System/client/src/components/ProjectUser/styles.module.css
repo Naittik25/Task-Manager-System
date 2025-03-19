@@ -34,7 +34,7 @@
   button {
 	padding: 10px 20px;
 	border: none;
-	background-color: #45a049;
+	background-color: #628b64;
 	color: white;
 	font-size: 1rem;
 	cursor: pointer;
@@ -45,7 +45,7 @@
   }
   
   button:hover {
-	background-color: #45a049;
+	background-color: #628b64;
   }
   
   /* Profile list styles */

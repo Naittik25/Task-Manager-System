@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import styles from "./styles.module.css";
 
 const ProjectDetails = () => {
   const { projectId } = useParams();
+  const location = useLocation(); // Use useLocation to access the query parameters
   const navigate = useNavigate();
   const [projects, setProject] = useState({});
   const [loading, setLoading] = useState(true);
   const [editingTask, setEditingTask] = useState(null);  // Stores task being edited
   const [editValues, setEditValues] = useState({});  // Form state for edits
 
+  // Extract query parameter `id` from URL
+  const queryParams = new URLSearchParams(location.search);
+  const userId = queryParams.get('id');
+
   useEffect(() => {
     const fetchTaskDetails = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:3001/api/task/${projectId}`);
-        console.log(data, "data===datadata==")
+        const { data } = await axios.get(`http://localhost:3001/api/task/${projectId}?user_id=${userId}`);
         setProject(data.data);
       } catch (error) {
         console.error("Error fetching tasks details:", error);
@@ -227,8 +231,14 @@ return (
                       <p>
                         <strong>Task Log Hours:</strong> {task?.task_log_hour ? task?.task_log_hour : "None"}
                       </p>
+                      {
+                        task?.permission?.edit_task && 
                         <button onClick={() => handleEditTask(task)} className={styles.edit_button}>Edit</button>
+                      }
+                      {
+                        task?.permission?.delete_task &&
                         <button onClick={() => handleDeleteTask(task._id)} className={styles.delete_button}>Delete</button> 
+                      }
                       </>
                     )}
                   </li>

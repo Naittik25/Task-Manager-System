@@ -68,7 +68,7 @@ const Main = () => {
   };
 
   const handleProjectClick = (projectId) => {     
-    navigate(`/project/${projectId}`); // Pass the projectId to the Project page   
+    navigate(`/project/${projectId}?id=${userId}`); // Pass the projectId to the Project page   
   };
 
   // Handle editing a project   
@@ -113,9 +113,9 @@ const Main = () => {
                     {project?.start_date ? (project.start_date).split("T")[0] : ''} =&gt; { project?.end_date ? (project.end_date).split("T")[0] : ''}
                 </div>
                         
-                <br />                    
+                <br />
                 <div className={styles.progress_bar_container}>
-                  <div className={styles.progress_bar} style={{ width: `40%` }}></div>
+                  <div className={styles.progress_bar} style={{ width: `${project?.task ? project.task : 0}%` }}></div>
                 </div>
                 <div className={styles.project_description}>({project?.description?.toLowerCase()})</div>                   
                 <div className={styles.project_status}>{project?.status}</div>                  

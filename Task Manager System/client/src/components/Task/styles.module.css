@@ -36,7 +36,7 @@ select {
 button {
 	padding: 10px 20px;
 	border: none;
-	background-color: #45a049;
+	background-color: #628b64;
 	color: white;
 	font-size: 1rem;
 	cursor: pointer;
@@ -47,7 +47,7 @@ button {
 }
 
 button:hover {
-	background-color: #45a049;
+	background-color: #628b64;
 }
 
 /* Priority radio button styles */
@@ -99,7 +99,7 @@ select:focus {
 
 /* Hover effect for dropdown */
 select:hover {
-	border-color: #45a049;
+	border-color: #628b64;
 }
 
 /* Button adjustments */

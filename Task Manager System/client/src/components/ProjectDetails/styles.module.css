@@ -18,7 +18,7 @@
     font-size: 14px;
     cursor: pointer;
     margin-right: 10px;
-    background-color: #45a049;
+    background-color: #628b64;
   }
 
   .add_button {
@@ -28,7 +28,7 @@
     font-size: 14px;
     cursor: pointer;
     margin-left: 65%;
-    background-color: #45a049;
+    background-color: #628b64;
   }
 
   .task_button {
@@ -38,7 +38,7 @@
     font-size: 14px;
     cursor: pointer;
     margin-right: 10px;
-    background-color: #45a049;
+    background-color: #628b64;
   }
   
   .project-title {
@@ -132,7 +132,7 @@
   
   .progress_bar {
     height: 100%;
-    background-color: #45a049;
+    background-color: #628b64;
     width: 0%;
     transition: width 0.5s ease-in-out;
     border-radius: 10px;
