@@ -8,7 +8,7 @@ const Project = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState(null);
   const [status, setStatus] = useState("Pending");
-  const [priority, setPriority] = useState("");
+  const [priority, setPriority] = useState("Low");
   const [start_date, setstartDate] = useState(null);
   const [end_date, setEndDate] = useState(null);
   const [due_date, setDueDate] = useState(null);

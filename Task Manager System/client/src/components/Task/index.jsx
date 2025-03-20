@@ -299,9 +299,6 @@ const Task = () => {
           Create Task
         </button>
 
-        <button onClick={handleCreateProfile} className={styles.button}>
-         Task Details
-        </button>
       </div>
     </div>
   );

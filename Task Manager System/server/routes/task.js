@@ -12,7 +12,7 @@ router.post("/", async (req, res) => {
 		if (error)
 			return res.status(400).send({ message: error.details[0].message });
 
-		const task = await Task.findOne({ name: req.body.name });
+		const task = await Task.findOne({ name: req.body.name, project_id: req.body.project_id });
 		if (task)
 			return res
 				.status(409)

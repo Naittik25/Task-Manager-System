@@ -154,7 +154,7 @@ return (
 
                         <h3>Reporter:</h3>
                         <select name="reporter" value={editValues?.reporter} onChange={handleEditChange} className={styles.inputField} disabled>
-                          {(task?.reporter) ? (
+                          {(task?.reporter?.name) ? (
                             // projects.users.map((user) => (
                               <option key={task?.reporter._id} value={task?.reporter._id}>{task?.reporter?.name} ({task?.reporter?.profile_name})</option>
                             // ))
@@ -165,7 +165,7 @@ return (
 
                         <h3>Assignee:</h3>
                         <select name="assignee" value={editValues?.assignee} onChange={handleEditChange} className={styles.inputField} disabled>
-                          {(task?.assignee) ? (
+                          {(task?.assignee?.name) ? (
                             // projects.users.map((user) => (
                               <option key={task?.assignee._id} value={task?.assignee._id}>{task?.assignee?.name} ({task?.assignee?.profile_name})</option>
                             // ))

@@ -90,7 +90,7 @@ const ProjectDetails = () => {
           <p><strong>Status:</strong> {project?.status}</p>
           <p><strong>Priority:</strong> {project?.priority}</p>
           <p><strong>Start Date:</strong> {project?.start_date.split("T")[0]}</p>
-          <p><strong>End Date:</strong> {project?.end_date.split("T")[0]}</p>
+          <p><strong>End Date:</strong> {project?.end_date?.split("T")[0] || "--"}</p>
           <div className={styles.modal}>
           <div className={styles.modalContent}>
             {/* <h2>Project User Role</h2> */}

@@ -11,6 +11,7 @@ const EditProject = () => {
   const [project, setProject] = useState({
     name: "",
     description: "",
+    start_date: "",
     end_date: "",
     status: "",
     priority: "",
@@ -72,6 +73,8 @@ const EditProject = () => {
       delete updatedProject._id;
       delete updatedProject.__v;
       delete updatedProject.users;
+      delete updatedProject.tasks;
+      console.log(updatedProject, "updatedProjectgyhjbj")
       const response = await axios.put("http://localhost:3001/api/project", updatedProject);
       
       if (response.status === 200) {
@@ -163,13 +166,23 @@ const EditProject = () => {
         </div>
 
         <div className={styles.formGroup}>
+          <label>Start Date</label>
+          <input
+            type="date"
+            name="start_date"
+            value={project.start_date ? project.start_date.split("T")[0] : ""}
+            onChange={(e) => setProject({ ...project, start_date: e.target.value })}
+            required
+          />
+        </div>
+
+        <div className={styles.formGroup}>
           <label>End Date</label>
           <input
             type="date"
             name="end_date"
             value={project.end_date ? project.end_date.split("T")[0] : ""}
             onChange={(e) => setProject({ ...project, end_date: e.target.value })}
-            required
           />
         </div>
 
