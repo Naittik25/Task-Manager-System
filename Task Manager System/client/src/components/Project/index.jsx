@@ -110,7 +110,7 @@ const Project = () => {
         >
           <option value="Pending">Pending</option>
           <option value="In Progress">In Progress</option>
-          <option value="Complete">Complete</option>
+          <option value="Completed">Completed</option>
           <option value="Hold">Hold</option>
         </select>
         </h3>

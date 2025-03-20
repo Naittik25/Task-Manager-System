@@ -146,7 +146,7 @@ return (
                         <select name="status" value={editValues?.status} onChange={handleEditChange} className={styles.inputField}>
                           <option value="Pending">Pending</option>
                           <option value="In Progress">In Progress</option>
-                          <option value="Complete">Complete</option>
+                          <option value="Completed">Completed</option>
                           <option value="Hold">Hold</option>
                           <option value="In Testing">In Testing</option>
                           <option value="Ready For Deploy">Ready For Deploy</option>
