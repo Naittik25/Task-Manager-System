@@ -254,26 +254,54 @@ const EditProject = () => {
 
       {/* Modal for selecting user */}
       {showUserModal && (
-        <div className={styles.modal}>
-          <div className={styles.modalContent}>
-            <h3>Select User and Role</h3>
-            <select name="user" value={selectedUser} onChange={(e) => setSelectedUser(e.target.value)}>
-              <option value="">Select a user</option>
-              {availableUsers.map((user) => (
-                <option key={user._id} value={user._id}>{user.fullName}</option>
-              ))}
-            </select>
-            <select name="role" value={selectedRole} onChange={(e) => setSelectedRole(e.target.value)}>
-              <option value="">Select Role</option>
-              {roles.map((role) => (
-                <option key={role._id} value={role._id}>{role.name}</option>
-              ))}
-            </select>
-            <button type="button" onClick={handleAddUser}>Add User</button>
-            <button type="button" onClick={() => setShowUserModal(false)}>Close</button>
-          </div>
-        </div>
-      )}
+  <div className={styles.modal}>
+    <div className={styles.modalContent}>
+      <h3>Select User and Role</h3>
+      <div className={styles.column}>
+        <select 
+          name="user" 
+          value={selectedUser} 
+          onChange={(e) => setSelectedUser(e.target.value)} 
+          className={styles.select}
+        >
+          <option value="">Select a user</option>
+          {availableUsers.map((user) => (
+            <option key={user._id} value={user._id}>{user.fullName}</option>
+          ))}
+        </select>
+        
+        <select 
+          name="role" 
+          value={selectedRole} 
+          onChange={(e) => setSelectedRole(e.target.value)} 
+          className={styles.select}
+        >
+          <option value="">Select Role</option>
+          {roles.map((role) => (
+            <option key={role._id} value={role._id}>{role.name}</option>
+          ))}
+        </select>
+
+        <button 
+          type="button" 
+          onClick={handleAddUser} 
+          className={styles.button}
+        >
+          Add User
+        </button>
+
+        <button 
+          type="button" 
+          onClick={() => setShowUserModal(false)} 
+          className={styles.button}
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 };
