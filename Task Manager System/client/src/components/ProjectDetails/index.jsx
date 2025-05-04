@@ -45,7 +45,10 @@ const ProjectDetails = () => {
   const pendingTask = tasks?.filter(e=> e.status === "Pending")?.length || 0;
   const inProgressTask = tasks?.filter(e=> e.status === "In Progress")?.length || 0;
   const onHoldTask = tasks?.filter(e=> e.status === "Hold")?.length || 0;
-  const overDueTask = tasks?.filter(e=> e.due_date > Date.now())?.length || 0;
+  const overDueTask = tasks?.filter(
+    e => new Date(e.due_date) < new Date() && e.status !== "Completed"
+  )?.length || 0;
+  
 
   const permission = project?.users?.find(e=>(e.user_id === userId && e.project_id === projectId))?.permission;
 

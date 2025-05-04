@@ -139,3 +139,16 @@
     transition: width 0.5s ease-in-out;
     border-radius: 10px;	
   }
+  .project_list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 30px; /* Adds spacing between items */
+}
+.project_item {
+	position: relative;
+	margin-bottom: 30px;
+	padding-right: 60px;
+	width: 23%;
+	background-color: #d5e6e2;
+}

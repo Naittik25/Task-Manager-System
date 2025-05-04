@@ -33,9 +33,9 @@ const Main = () => {
 
   const handleLogout = () => {     
     localStorage.removeItem("token");     
-    navigate("/login");   
+    navigate("/login");  
   };
-
+  
   const handleProfile = () => {     
     navigate("/profile");   
   };
@@ -88,9 +88,15 @@ const Main = () => {
             Profile             
           </button>           
         )}           
-        <button className={styles.white_btn} onClick={handleLogout}>             
-          Logout           
-        </button>         
+        {token ? (
+    <button className={styles.white_btn} onClick={handleLogout}>
+      Logout
+    </button>
+  ) : (
+    <button className={styles.white_btn} onClick={() => navigate("/login")}>
+      Login
+    </button>
+  )}         
       </nav>           
       {/* Project List Container */}          
       <div className={styles.project_list_container}>            

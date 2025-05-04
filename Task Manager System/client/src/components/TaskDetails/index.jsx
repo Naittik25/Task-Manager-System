@@ -177,19 +177,19 @@ return (
 
                         <h3>Estimate Hours:</h3>
                         <select name="estimate_hour" value={editValues?.estimate_hour} onChange={handleEditChange} className={styles.timeInput}>
-                          {[...Array(24).keys()].map((hour) => (<option key={hour} value={hour}>{hour}</option>))}
+                          {[...Array(48).keys()].map((hour) => (<option key={hour} value={hour}>{hour}</option>))}
                         </select>
-                        <select name="estimate_minute" value={editValues?.estimate_minute} onChange={handleEditChange} className={styles.timeInput}>
+                        {/* <select name="estimate_minute" value={editValues?.estimate_minute} onChange={handleEditChange} className={styles.timeInput}>
                           {[...Array(60).keys()].map((minute) => (<option key={minute} value={minute}>{minute}</option>))}
-                        </select>
+                        </select> */}
 
                         <h3>Task Log Hours:</h3>
                         <select name="task_log_hour" value={editValues?.task_log_hour} onChange={handleEditChange} className={styles.timeInput}>
-                          {[...Array(24).keys()].map((hour) => (<option key={hour} value={hour}>{hour}</option>))}
+                          {[...Array(48).keys()].map((hour) => (<option key={hour} value={hour}>{hour}</option>))}
                         </select>
-                        <select name="task_log_minute" value={editValues?.task_log_minute} onChange={handleEditChange} className={styles.timeInput}>
+                        {/* <select name="task_log_minute" value={editValues?.task_log_minute} onChange={handleEditChange} className={styles.timeInput}>
                           {[...Array(60).keys()].map((minute) => (<option key={minute} value={minute}>{minute}</option>))}
-                        </select>
+                        </select> */}
 
                         <button onClick={() => handleSaveEdit(task._id)} className={styles.save_button}>Save</button>
                         <button onClick={() => setEditingTask(null)} className={styles.cancel_button}>Cancel</button>

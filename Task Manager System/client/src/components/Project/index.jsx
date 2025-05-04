@@ -16,6 +16,20 @@ const Project = () => {
   const navigate = useNavigate();
 
   const handleCreateProfile = async () => {
+    if (!start_date) {
+      alert("Start date is required.");
+      return;
+    }
+  
+    if (end_date && new Date(end_date) < new Date(start_date)) {
+      alert("End date cannot be before start date.");
+      return;
+    }
+  
+    if (due_date && new Date(due_date) < new Date(start_date)) {
+      alert("Due date cannot be before start date.");
+      return;
+    }
     try {
       const newProject = { name, description, priority, status, start_date, end_date, due_date }; // Include status in the new project
       const { data } = await axios.post("http://localhost:3001/api/project", newProject);

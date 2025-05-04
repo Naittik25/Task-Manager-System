@@ -139,26 +139,26 @@ const Task = () => {
             className={styles.timeInput}
           >
             {/* Hour options */}
-            {[...Array(24).keys()].map((hour) => (
+            {[...Array(48).keys()].map((hour) => (
               <option key={hour} value={hour}>
                 {hour < 10 ? `0${hour}` : hour}
               </option>
             ))}
           </select>
           <span>Hours</span>
-          <select
+          {/* <select
             value={estimate_minute}
             onChange={(e) => setEstimateMinute(e.target.value)}
             className={styles.timeInput}
           >
-            {/* Minute options */}
+           
             {[...Array(60).keys()].map((minute) => (
               <option key={minute} value={minute}>
                 {minute < 10 ? `0${minute}` : minute}
               </option>
             ))}
           </select>
-          <span>Minutes</span>
+          <span>Minutes</span> */}
         </h3>
 
         <h3>Task Log Hours:
@@ -169,26 +169,25 @@ const Task = () => {
             className={styles.timeInput}
           >
             {/* Hour options */}
-            {[...Array(24).keys()].map((hour) => (
+            {[...Array(48).keys()].map((hour) => (
               <option key={hour} value={hour}>
                 {hour < 10 ? `0${hour}` : hour}
               </option>
             ))}
           </select>
           <span>Hours</span>
-          <select
+          {/* <select
             value={task_log_minute}
             onChange={(e) => setTaskLogMinute(e.target.value)}
             className={styles.timeInput}
           >
-            {/* Minute options */}
             {[...Array(60).keys()].map((minute) => (
               <option key={minute} value={minute}>
                 {minute < 10 ? `0${minute}` : minute}
               </option>
             ))}
           </select>
-          <span>Minutes</span>
+          <span>Minutes</span> */}
         </h3>
 
         {/* Dropdown for Task Type */}

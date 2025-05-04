@@ -8,6 +8,7 @@ import ProjectEdit from "./components/ProjectEdit";
 import ProjectDetails from "./components/ProjectDetails";
 import ProjectTask from "./components/Task";
 import ProjectTasks from "./components/TaskDetails";
+import { useEffect } from "react";
 
 function App() {
 	const user = localStorage.getItem("token");
@@ -15,7 +16,12 @@ function App() {
 	return (
 		<Routes>
 			{<Route path="/" element={<Navigate to="/login" />} />}
-			<Route path="/login" exact element={<Login />} />
+			{/* <Route path="/login" element={<Login />} /> */}
+			<Route
+  path="/login"
+  element={localStorage.getItem("token") ? <Navigate to="/dashboard" /> : <Login />}
+/>
+
 			<Route path="/signup" exact element={<Signup />} />
 			<Route path="/profile" exact element={<Profile />} />
 			<Route path="/project" exact element={<Project />} />
