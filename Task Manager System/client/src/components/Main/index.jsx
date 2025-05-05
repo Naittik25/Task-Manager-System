@@ -60,6 +60,7 @@ const Main = () => {
   // Call fetchProjectList when the component mounts   
   useEffect(() => {     
     fetchProjectList();   
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Handle adding a new project   
