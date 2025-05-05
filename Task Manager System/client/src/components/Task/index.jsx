@@ -17,9 +17,7 @@ const Task = () => {
   const [end_date, setEndDate] = useState(null);
   const [due_date, setDueDate] = useState(null);
   const [estimate_hour, setEstimateHour] = useState("00");
-  const [estimate_minute, setEstimateMinute] = useState("00");
-  const [task_log_hour, setTaskLogHour] = useState("00");
-  const [task_log_minute, setTaskLogMinute] = useState("00");
+   const [task_log_hour, setTaskLogHour] = useState("00");
   const [users, setUsers] = useState([]); // All users
   const [error, setError] = useState(null);
   
@@ -28,11 +26,10 @@ const Task = () => {
 
   const handleCreateProfile = async () => {
     try {
-      const estimateHour = `${estimate_hour} Hour : ${estimate_minute} Minute`;
-      const taskLogHour = `${task_log_hour} Hour : ${task_log_minute} Minute`;
+
       const newTask = {
         project_id: projectId, name, description, priority : "Low", status, start_date, end_date, due_date,
-        estimate_hour: estimateHour, task_log_hour: taskLogHour, reporter_id: reporter, assignee_id: assignee,
+        reporter_id: reporter, assignee_id: assignee,
         task_type
       }; // Include status in the new task
       const { data } = await axios.post("http://localhost:3001/api/task", newTask);
