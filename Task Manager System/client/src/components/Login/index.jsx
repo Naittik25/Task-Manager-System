@@ -23,7 +23,7 @@ const Login = () => {
 		e.preventDefault();
 		try {
 			// Update the backend endpoint URL
-			const url = "http://localhost:3001/api/auth";
+			const url = "https://task-backend-1-vgtf.onrender.com/api/auth";
 
 			// Call the backend without expecting specific validations
 			const { data: res } = await axios.post(url, data);

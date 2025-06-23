@@ -19,7 +19,7 @@ const ProjectDetails = () => {
   useEffect(() => {
     const fetchTaskDetails = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:3001/api/task/${projectId}?user_id=${userId}`);
+        const { data } = await axios.get(`https://task-backend-1-vgtf.onrender.com/api/task/${projectId}?user_id=${userId}`);
         setProject(data.data);
       } catch (error) {
         console.error("Error fetching tasks details:", error);
@@ -34,7 +34,7 @@ const ProjectDetails = () => {
     // Handle Delete Task
     const handleDeleteTask = async (taskId) => {
       try {
-        await axios.delete(`http://localhost:3001/api/task/${taskId}`); // Call API
+        await axios.delete(`https://task-backend-1-vgtf.onrender.com/api/task/${taskId}`); // Call API
         setProject(projects.filter((project) => project._id !== taskId)); // Remove from state
       } catch (error) {
         console.error("Error deleting task:", error);
@@ -83,7 +83,7 @@ const ProjectDetails = () => {
       delete formattedEditValues.estimate_minute;
       delete formattedEditValues.task_log_minute;
   
-      await axios.put(`http://localhost:3001/api/task`, formattedEditValues);
+      await axios.put(`https://task-backend-1-vgtf.onrender.com/api/task`, formattedEditValues);
   
       setProject(projects.map((task) => (task._id === taskId ? { ...task, ...formattedEditValues } : task))); // Update UI
       setEditingTask(null); // Close edit form

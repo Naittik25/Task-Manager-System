@@ -20,7 +20,7 @@ const ProjectDetails = () => {
   useEffect(() => {
     const fetchProjectDetails = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:3001/api/project/${projectId}`);
+        const { data } = await axios.get(`https://task-backend-1-vgtf.onrender.com/api/project/${projectId}`);
         setProject(data.data);
         setTasks(data.data.tasks);
       } catch (error) {

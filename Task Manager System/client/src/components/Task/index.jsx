@@ -32,7 +32,7 @@ const Task = () => {
         reporter_id: reporter, assignee_id: assignee,
         task_type
       }; // Include status in the new task
-      const { data } = await axios.post("http://localhost:3001/api/task", newTask);
+      const { data } = await axios.post("https://task-backend-1-vgtf.onrender.com/api/task", newTask);
       console.log(data, "==data");
 
       localStorage.setItem("taskData", JSON.stringify(data.data));
@@ -57,7 +57,7 @@ const Task = () => {
 
   const fetchUsers = async () => {
     try {
-      const { data } = await axios.get("http://localhost:3001/api/project_user");
+      const { data } = await axios.get("https://task-backend-1-vgtf.onrender.com/api/project_user");
       setUsers(data.data); // All available users
     } catch (err) {
       setError("Failed to fetch users");

@@ -31,7 +31,7 @@ const EditProject = () => {
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/project/${projectId}`);
+        const response = await axios.get(`https://task-backend-1-vgtf.onrender.com/api/project/${projectId}`);
         setProject(response.data.data); // Populate the project with its current details
         setLoading(false);
       } catch (err) {
@@ -42,7 +42,7 @@ const EditProject = () => {
 
     const fetchUsers = async () => {
       try {
-        const { data } = await axios.get("http://localhost:3001/api/users");
+        const { data } = await axios.get("https://task-backend-1-vgtf.onrender.com/api/users");
         setUsers(data.data); // All available users
       } catch (err) {
         setError("Failed to fetch users");
@@ -51,7 +51,7 @@ const EditProject = () => {
 
     const fetchRoles = async () => {
       try {
-        const { data } = await axios.get("http://localhost:3001/api/profile"); // Fetch roles from API
+        const { data } = await axios.get("https://task-backend-1-vgtf.onrender.com/api/profile"); // Fetch roles from API
         setRoles(data.data);
       } catch (err) {
         setError("Failed to fetch roles");
@@ -76,7 +76,7 @@ const EditProject = () => {
       delete updatedProject.users;
       delete updatedProject.tasks;
       console.log(updatedProject, "updatedProjectgyhjbj")
-      const response = await axios.put("http://localhost:3001/api/project", updatedProject);
+      const response = await axios.put("https://task-backend-1-vgtf.onrender.com/api/project", updatedProject);
       
       if (response.status === 200) {
         navigate('/dashboard'); // Refresh page after update
@@ -100,7 +100,7 @@ const EditProject = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3001/api/project_user", {
+      const response = await axios.post("https://task-backend-1-vgtf.onrender.com/api/project_user", {
         project_id: projectId,
         user_id: selectedUser,
         profile_id: selectedRole,
@@ -110,7 +110,7 @@ const EditProject = () => {
         setSelectedUser(""); // Reset the selected user
         setSelectedRole("");
         // Re-fetch the project to update the list of users
-        const updatedProjectResponse = await axios.get(`http://localhost:3001/api/project/${projectId}`);
+        const updatedProjectResponse = await axios.get(`https://task-backend-1-vgtf.onrender.com/api/project/${projectId}`);
         setProject(updatedProjectResponse.data.data);
       }
     } catch (err) {
@@ -120,7 +120,7 @@ const EditProject = () => {
 
   const handleDeleteUser = async (userId) => {
     try {
-      const response = await axios.delete(`http://localhost:3001/api/project_user/${userId}`);
+      const response = await axios.delete(`https://task-backend-1-vgtf.onrender.com/api/project_user/${userId}`);
   
       // eslint-disable-next-line eqeqeq
       if (response.status == 200) {

@@ -22,7 +22,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
-        const { data } = await axios.get("http://localhost:3001/api/profile");
+        const { data } = await axios.get("https://task-backend-1-vgtf.onrender.com/api/profile");
         setProfiles(data.data);
       } catch (error) {
         console.error("Error fetching profiles. Please try again.");
@@ -35,7 +35,7 @@ const Profile = () => {
   const handleCreateProfile = async () => {
     try {
       const newProfile = { name, description, permission };
-      const { data } = await axios.post("http://localhost:3001/api/profile", newProfile);
+      const { data } = await axios.post("https://task-backend-1-vgtf.onrender.com/api/profile", newProfile);
       console.log(data, "==data");
 
       localStorage.setItem("profileData", JSON.stringify(data.data));
@@ -54,7 +54,7 @@ const Profile = () => {
   //   try {
   //     const updatedProfile = { name, description, permission, id: editId };
   //     console.log(updatedProfile);
-  //     const { data } = await axios.put(`http://localhost:3001/api/profile`, updatedProfile);
+  //     const { data } = await axios.put(`https://task-backend-1-vgtf.onrender.com/api/profile`, updatedProfile);
   //     console.log("list", data.data);
 
   //     const updatedProfiles = profiles.map((profile) =>
@@ -96,7 +96,7 @@ const Profile = () => {
     try {
       // API call to save permissions
       const response = await axios.put(
-        `http://localhost:3001/api/profile/${selectedProfile._id}`,
+        `https://task-backend-1-vgtf.onrender.com/api/profile/${selectedProfile._id}`,
         { permission: permissions } // Send updated permissions
       );
   
@@ -127,7 +127,7 @@ const Profile = () => {
 
   const handleDeleteProfile = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/api/profile/${profileToDelete}`);
+      await axios.delete(`https://task-backend-1-vgtf.onrender.com/api/profile/${profileToDelete}`);
       setProfiles(profiles.filter((profile) => profile._id !== profileToDelete));
       closeModal();
     } catch (error) {

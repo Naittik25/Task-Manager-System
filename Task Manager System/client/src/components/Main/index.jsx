@@ -6,27 +6,25 @@ import { FaFlag } from 'react-icons/fa';
 
 const Main = () => {   
   const navigate = useNavigate();
-
-  // Custom function to decode JWT   
+  
   const decodeToken = (token) => {     
     try {       
       const base64Payload = token.split(".")[1];       
-      const payload = atob(base64Payload); // Decode the payload       
-      return JSON.parse(payload); // Parse the JSON     
+      const payload = atob(base64Payload);     
+      return JSON.parse(payload);   
     } catch (error) {       
       console.error("Error decoding token:", error);       
       return null;     
     }   
   };
 
-  // Decode the token to check if the user is an admin   
   const token = localStorage.getItem("token");   
   let isAdmin = false;
   let userId = null;
 
   if (token) {     
     const decodedToken = decodeToken(token);     
-    isAdmin = decodedToken?.isAdmin || false; // Extract isAdmin from the decoded token  
+    isAdmin = decodedToken?.isAdmin || false;  
     userId = decodedToken?._id; 
     localStorage.setItem("user", userId)
   }
@@ -40,46 +38,45 @@ const Main = () => {
     navigate("/profile");   
   };
 
-  // State for storing projects   
   const [projects, setProjects] = useState([]);   
   const [loading, setLoading] = useState(true);
 
-  // Fetch projects from the API   
+  
   const fetchProjectList = async () => {     
     try {
       console.log(userId)
-      const { data } = await axios.get(`http://localhost:3001/api/project?user_id=${userId}&&isAdmin=${isAdmin}`);       
+      const { data } = await axios.get(`https://task-backend-1-vgtf.onrender.com/api/project?user_id=${userId}&&isAdmin=${isAdmin}`);       
       setProjects(data.data);       
-      setLoading(false); // Stop the loading state once data is fetched     
+      setLoading(false);   
     } catch (error) {       
       console.error("Error fetching projects. Please try again.");       
-      setLoading(false); // Stop loading even on error     
+      setLoading(false);      
     }   
   };
 
-  // Call fetchProjectList when the component mounts   
+
   useEffect(() => {     
     fetchProjectList();   
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Handle adding a new project   
+ 
   const handleProject = () => {
-    navigate("/project"); // Navigate to the page where users can add a project   
+    navigate("/project");
   };
 
   const handleProjectClick = (projectId) => {     
-    navigate(`/project/${projectId}?id=${userId}`); // Pass the projectId to the Project page   
+    navigate(`/project/${projectId}?id=${userId}`); 
   };
 
-  // Handle editing a project   
+   
   const handleEdit = (event, project) => {   
     event.stopPropagation(); 
-    navigate(`/project/edit/${project}`); // Pass the projectId to the EditProject page
+    navigate(`/project/edit/${project}`); 
   };
 
   return (     
-    // Wrap your component with TooltipProvider       
+       
     <div className={styles.main_container}>         
       <nav className={styles.navbar}>           
         <h1>Welcome To Task Manager System</h1>           

@@ -32,7 +32,7 @@ const Project = () => {
     }
     try {
       const newProject = { name, description, priority, status, start_date, end_date, due_date }; // Include status in the new project
-      const { data } = await axios.post("http://localhost:3001/api/project", newProject);
+      const { data } = await axios.post("https://task-backend-1-vgtf.onrender.com/api/project", newProject);
       console.log(data, "==data");
 
       localStorage.setItem("projectData", JSON.stringify(data.data));
